@@ -23,14 +23,14 @@ class PostController extends Controller
         return View('posts.create');
     }
 
-    function store(){
+    function store(Request $request){
       /*
         DB::table('posts')->insert([
         'title'=>Input::get('title'),
         'body'=>Input::get('body')
         ]);*/
-        $id = Input::get('title');
-        $name = Input::get('body');
+        $id = $request->input('title');
+        $name = $request->input('body');
         DB::table('test1')->insert(
           ['id' => $id, 'name' => $name]
         );
