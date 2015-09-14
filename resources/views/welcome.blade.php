@@ -43,6 +43,8 @@
                 <a href="test0"><button value="test0">TEST0</button></a>
                 <a href="task"><button value="task">task</button></a>
                 <a href="create"><button value="create">create</button></a>
+                <a href="model"><button value="model">model</button></a>
+                <?php echo "echotest"; ?>
             </div>
         </div>
     </body>

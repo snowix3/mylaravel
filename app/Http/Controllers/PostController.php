@@ -29,6 +29,15 @@ class PostController extends Controller
         'title'=>Input::get('title'),
         'body'=>Input::get('body')
         ]);*/
+        //バリデーション
+        $rules = [
+            'title' => 'required|min:3',
+            'body' => 'required',
+        ];
+        $this->validate($request, $rules);
+
+
+
         $id = $request->input('title');
         $name = $request->input('body');
         DB::table('test1')->insert(

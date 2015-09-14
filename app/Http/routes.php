@@ -43,8 +43,9 @@ Route::post('posts', 'PostController@store');
 
 Route::resource('task', 'TaskController@show');
 
-
-
+// modeltest
+Route::get('model', 'ModelTestController@show');
+Route::post('model', 'ModelTestController@store');
 
 
 
