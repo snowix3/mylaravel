@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Laravel</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
@@ -44,7 +45,7 @@
                 <a href="task"><button value="task">task</button></a>
                 <a href="create"><button value="create">create</button></a>
                 <a href="model"><button value="model">model</button></a>
-                <?php echo "echotest"; ?>
+
             </div>
         </div>
     </body>

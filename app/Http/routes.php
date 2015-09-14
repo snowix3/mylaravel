@@ -35,9 +35,6 @@ Route::get('create', function () {
     return view('posts/create');
 });
 
-// 投稿formを表示する
-Route::get('posts/create', 'PostController@create');
-
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
 
@@ -47,6 +44,13 @@ Route::resource('task', 'TaskController@show');
 Route::get('model', 'ModelTestController@show');
 Route::post('model', 'ModelTestController@store');
 
+
+Route::get('posts/create', ['middleware' => 'old', function()
+{
+    return ('PostController@create');
+}]);
+// 投稿formを表示する
+//Route::get('posts/create', 'PostController@create');
 
 
 

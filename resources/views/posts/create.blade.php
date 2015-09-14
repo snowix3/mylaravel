@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>クリ８</title>
     </head>
     <body>
-        <form method="post" action="../posts">
+        <form method="post" action="../posts" accept-charset="UTF-8">
             <label for="title">title</label><br>
             <input type="number" name="title"><br>
             <label for="body">body</label><br>
