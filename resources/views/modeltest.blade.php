@@ -53,8 +53,9 @@
         </form>
         <!--配列またはJSONの中身を表示-->
         <?php
-        $array = json_decode( $Model_Test) ;
-          print_r($array);
+//        $array = json_decode( $Model_Test,true) ;
+        //  print_r($Model_Test);
+        echo $Model_Test;
 //        echo $array[0];
         ?>
 
