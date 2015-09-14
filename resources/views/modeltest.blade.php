@@ -51,7 +51,13 @@
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <button type="submit">submit</button>
         </form>
-        <?php echo $Model_Test; ?>
+        <!--配列またはJSONの中身を表示-->
+        <?php
+        $array = json_decode( $Model_Test) ;
+          print_r($array);
+//        echo $array[0];
+        ?>
+
 <!--
         @foreach($Model_Test->all() as $Model_Test)
              <li></li>
