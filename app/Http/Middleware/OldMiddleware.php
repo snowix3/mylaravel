@@ -15,6 +15,7 @@ class OldMiddleware
      */
     public function handle($request, Closure $next)
     {
+//      $this->app->Http->Middleware->contentType("posts/create; charset=utf-8");
 //      echo $request;
       if ($request->input('title') > 500)
       {

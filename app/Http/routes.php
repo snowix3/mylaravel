@@ -47,7 +47,7 @@ Route::post('model', 'ModelTestController@store');
 
 Route::get('posts/create', ['middleware' => 'old', function()
 {
-    return ('PostController@create');
+    return ('PostController@store');
 }]);
 // 投稿formを表示する
 //Route::get('posts/create', 'PostController@create');
