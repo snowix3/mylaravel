@@ -40,8 +40,6 @@
             <div class="content">
                 <div class="title">tasks OK</div>
                 <?php echo $user ?>
-                <a href="task/1"><p>task show1</p></a>
-                <a href="task/2"><p>task show2</p></a>
                 <?php echo "echotest"; ?>
             </div>
         </div>

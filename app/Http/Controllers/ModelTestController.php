@@ -69,7 +69,7 @@ class ModelTestController extends Controller
      */
     public function edit($id)
     {
-        //
+        //        return 'Successfully done!';
     }
 
     /**
@@ -93,5 +93,6 @@ class ModelTestController extends Controller
     public function destroy($id)
     {
         $Model_Test = Article::find($id);
+        $Model_Test->delete();
     }
 }
