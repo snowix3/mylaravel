@@ -29,10 +29,10 @@ class TaskController extends Controller
         return View('tasks.task')->with('user',$user);
     }
 
-    public function show(Request $request)
-//      public function show($id)
+//    public function show(Request $request)
+      public function show($id)
     {
-      $id = $request->input('id');
+//      $id = $request->input('id');
       return 'Success show task/'.$id;
     }
 
