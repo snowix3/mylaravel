@@ -35,6 +35,10 @@ Route::get('create', function () {
     return view('posts/create');
 });
 
+Route::get('ajaxtest', function () {
+    return view('ajaxtest');
+});
+
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
 
