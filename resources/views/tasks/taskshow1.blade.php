@@ -40,15 +40,7 @@
             <div class="content">
                 <div class="title">tasks OK</div>
                 <?php echo $user ?>
-                <a href="task/1"><p>task show1</p></a>
-                <a href="task/2"><p>task show2</p></a>
                 <?php echo "echotest"; ?>
-                <form method="get" action="task" accept-charset="UTF-8">
-                    <label for="title">数値入力1</label><br>
-                    <input type="number" name="id" id="id" value="{{Input::get('id')}}"><br>
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <button type="submit">submit</button>
-                </form>
             </div>
         </div>
     </body>

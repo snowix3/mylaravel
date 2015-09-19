@@ -38,7 +38,7 @@ Route::get('create', function () {
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
 
-Route::resource('task', 'TaskController@show');
+Route::resource('task', 'TaskController');//RESTfulな書き方。これ１行で全部まかなえる。
 
 // modeltest
 Route::get('model', 'ModelTestController@show');
@@ -47,7 +47,7 @@ Route::post('model', 'ModelTestController@store');
 
 Route::get('posts/create', ['middleware' => 'old', function()
 {
-    return ('PostController@create');
+    return ('PostController@store');
 }]);
 // 投稿formを表示する
 //Route::get('posts/create', 'PostController@create');

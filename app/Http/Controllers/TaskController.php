@@ -17,12 +17,6 @@ class TaskController extends Controller
     public function index()
     {
 //        return View('tasks.task');
-    }
-
-    public function show()
-    {
-
-      $user = DB::table('test1')->where('id', 3)->value('name');
 //        echo $user."aaaa";
 /*
         DB::table('test1')->insert(
@@ -31,7 +25,15 @@ class TaskController extends Controller
         ->with('user',$user)
 */
 //        DB::table('test1')->where('id', '=', 100)->delete();
+        $user = DB::table('test1')->where('id', 333)->value('name');
         return View('tasks.task')->with('user',$user);
+    }
+
+//    public function show(Request $request)
+      public function show($id)
+    {
+//      $id = $request->input('id');
+      return 'Success show task/'.$id;
     }
 
 

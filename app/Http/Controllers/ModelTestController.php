@@ -39,13 +39,17 @@ class ModelTestController extends Controller
     {
       $title = $request->input('title');
       $body = $request->input('body');
-      Model_Test::insert(['id' => $title]);//submitされたらORM(ORマッピング)でテーブルにデータを追加している。
-      $Model_Test = Model_Test::all();//modelを使ってるのでDB::という記述なしでいける。ORMでテーブルの情報を全取得してる。
+      $now = date('Y-m-d-h-m-s');//タイムスタンプ作成
+      Model_Test::insert(['id' => $title,'created_at' => $now]);//submitされたらORM(ORマッピング)でテーブルにデータを追加している。
+//      $Model_Test = Model_Test::all();//modelを使ってるのでDB::という記述なしでいける。ORMでテーブルの情報を全取得してる。
 //      $Model_Test = Model_Test::all()->toArray();//モデルの全コレクションを配列に変換
-//      $Model_Test = Model_Test::all()->toJson();//モデルの全コレクションをJSONに変換
+      $Model_Test = Model_Test::all()->toJson();//モデルの全コレクションをJSONに変換
 //      return view('modeltest', ['Model_Test' => $Model_Test]);//テーブル内の情報をビューに送って表示
-	      return view('modeltest')->with('Model_Test',$Model_Test);
-//        return $Model_Test;
+	    return view('modeltest')->with('Model_Test',$Model_Test);
+        //json_encode($Model_Test);
+//        return view('modeltest');
+//        return $Model_Test->"id";
+//      return 'Successfully done!';
     }
 
     /**
@@ -68,7 +72,7 @@ class ModelTestController extends Controller
      */
     public function edit($id)
     {
-        //
+        //return 'Successfully done!';
     }
 
     /**
@@ -92,5 +96,6 @@ class ModelTestController extends Controller
     public function destroy($id)
     {
         $Model_Test = Article::find($id);
+        $Model_Test->delete();
     }
 }
