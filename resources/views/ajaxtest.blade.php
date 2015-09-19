@@ -51,7 +51,7 @@
             }
           }
           xmlHttp.onreadystatechange = checkStatus;
-          xmlHttp.open("GET", "https://wordpress.org/plugins/about/readme.txt", true);
+          xmlHttp.open("GET", "http://localhost:8000/etc/ajaxtxt.txt", true);
 
           xmlHttp.send(null);
         }
@@ -63,6 +63,29 @@
           }
         }
 
+        var count =0;
+
+
+        function onepage(){
+          console.log("test1 ok");
+          count++;
+          var noTransition = document.getElementById("disp");
+          noTransition.innerHTML = "<button value=\"onepage\" onclick=\"twopage()\">two page"+count+"</button>";
+        }
+
+        function twopage(){
+          console.log("test2 ok");
+          count++;
+          var noTransition = document.getElementById("disp");
+          noTransition.innerHTML = "<button value=\"do1\" onclick=\"do1()\">DO"+count+"</button>";
+        }
+
+        function do1(){
+          console.log("do ok");
+          count++;
+          var noTransition = document.getElementById("disp");
+          noTransition.innerHTML = "<p>マジ実行しました</p>";
+        }
 
         </script>
     </head>
@@ -71,9 +94,10 @@
             <div class="content">
                 <div class="title">AJAX OK</div>
 
-                <button value="test" onclick="loadText()">TEST</button>
+                <button value="test" onclick="loadText()">Ajax TEST</button>
+                <button value="onepage" onclick="onepage()">one page</button>
 
-                <div id="disp"></div>
+                <div id="disp">this is disp DOM</div>
             </div>
         </div>
     </body>
