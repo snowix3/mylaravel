@@ -81,7 +81,7 @@
         }
 
         function do1(){
-          console.log("do ok");
+          console.log("test3 ok");
           count++;
           var noTransition = document.getElementById("disp");
           noTransition.innerHTML = "<p>マジ実行しました</p>";
