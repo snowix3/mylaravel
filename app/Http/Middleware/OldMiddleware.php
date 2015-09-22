@@ -17,9 +17,9 @@ class OldMiddleware
     {
 //      $this->app->Http->Middleware->contentType("posts/create; charset=utf-8");
 //      echo $request;
-      if ($request->input('title') > 500)
+      if ($request->input('title') > 5000)
       {
-        return response('無理', 500);
+        return response('5000以上のtitleは無理やし', 500);
       }
 
         return $next($request);
