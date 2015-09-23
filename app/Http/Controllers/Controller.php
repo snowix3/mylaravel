@@ -11,12 +11,5 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-public function hoge(){
-
-$hogehoge = "aaa";
-
-return $hogehoge;
-
-}
 
 }
