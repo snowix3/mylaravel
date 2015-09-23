@@ -27,6 +27,9 @@ class ShopController extends Controller
      */
     public function index()
     {
+        $timeArr = array();
+        $timeArr2 = array();
+        $timeArr3 = array();
         $quantityArr = array();
         $quantityArr2 = array();
         $array = DB::select('select * from shop_reservation_disp_jonathans where id=1');
@@ -38,14 +41,23 @@ class ShopController extends Controller
         $j=0;
         $array = DB::select("show columns from shop_reservation_disp_jonathans");
         foreach ($array as $key) {
-            $quantityArr[$i] = $key;
+            $timeArr[$i] = $key;
             //print_r($quantityArr[$i]);
 
-            foreach ($quantityArr[$i] as $key2) {
-                $quantityArr2[$j] = $key2;
+            foreach ($timeArr[$i] as $key2) {
+                $timeArr2[$j] = $key2;
                 if ($i>=4) {
                   if ($j==0) {
-                    echo $quantityArr2[$j]."</br>";
+                    //echo $quantityArr2[$j]."</br>";
+                    $quantityArr[$i] = DB::table('shop_reservation_disp_jonathans')
+                          ->lists($timeArr2[$j]);
+                    foreach ($quantityArr[$i] as $key3) {
+                        $quantityArr2[$i]=$key3;
+                  //      echo $quantityArr2[$i]."<br>";
+                    }
+                    $timeArr3[$i]=$timeArr2[0];
+//                    echo $timeArr3[$i]."</br>";
+//                    echo $quantityArr2[$i]."</br>";
                   }
                 }
                 $j++;
@@ -53,7 +65,8 @@ class ShopController extends Controller
             $j=0;
             $i++;
         }
-        return view('reservation/shop');//->with('quantityArr',$quantityArr);
+//        echo $quantityArr2[7]."</br>";
+        return view('reservation/shop')->with('timeArr3',$timeArr3)->with('quantityArr2',$quantityArr2);
     }
 
     /**

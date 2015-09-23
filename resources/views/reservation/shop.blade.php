@@ -39,43 +39,73 @@
         <div class="container">
             <div class="content">
                 <div class="title">SHOP OK</div>
-                <a href="shop"><button value="shop">リロード</button></a>
+                <a href="shop"><button value="shop">リロード</button></a><br>
+                <?php
+                if (isset($timeArr3)){
+                    //foreach ($timeArr3 as $key => $value) {
+                    //    echo $key.":".$value."<br>";
+                    //}
+                    $i=0;
+                    $j=0;
+                    $hour=0;
+                    $min=0;
+                    $date = array("月","火","水","木","金","土","日");
+                    echo '<table border="1">';
+                    foreach ($quantityArr2 as $key => $value) {
+//                        echo $key.":".$value."<br>";
+if ($i==0) {
+    echo '<td>'.$date[$j].'</td>';
+    $j++;
+}
+                        echo '<td><input type="number" name='.$timeArr3[$key].' value='.$value.' width="10"></td>';
+                        if ($i==47) {
+                            echo "<tr></tr>";
+                            $i=-1;
+                        }
+                        $i++;
 
+                    }
+                    echo "</table>";
+
+                }
+                ?>
                 <form method="post" action="../shop" accept-charset="UTF-8">
                     <label for="time">日時ごとに予約可能な数を入力し格納します。</label><br>
+
                     <table border="1">
+
                       <tr>
                         <td>-</td><td>月</td><td>火</td><td>水</td><td>木</td><td>金</td><td>土</td><td>日</td>
                       </tr>
                       <tr>
                         <td>00:00</td>
-                        <td><input type="number" name="mon_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[0];}?> width="10"></td>
-                        <td><input type="number" name="tue_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[1];}?> width="10"></td>
-                        <td><input type="number" name="wed_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[2];}?> width="10"></td>
-                        <td><input type="number" name="thu_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[3];}?> width="10"></td>
-                        <td><input type="number" name="fri_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[4];}?> width="10"></td>
-                        <td><input type="number" name="sat_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[5];}?> width="10"></td>
-                        <td><input type="number" name="sun_00_00" value=<?php if (isset($quantityArr)) {echo $quantityArr[6];}?> width="10"></td>
+                        <td><input type="number" name="mon_00_00" width="10"></td>
+                        <td><input type="number" name="tue_00_00" width="10"></td>
+                        <td><input type="number" name="wed_00_00" width="10"></td>
+                        <td><input type="number" name="thu_00_00" width="10"></td>
+                        <td><input type="number" name="fri_00_00" width="10"></td>
+                        <td><input type="number" name="sat_00_00" width="10"></td>
+                        <td><input type="number" name="sun_00_00" width="10"></td>
                       </tr>
                       <tr>
                         <td>00:30</td>
-                        <td><input type="number" name="mon_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[7];}?> width="10"></td>
-                        <td><input type="number" name="tue_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[8];}?> width="10"></td>
-                        <td><input type="number" name="wed_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[9];}?> width="10"></td>
-                        <td><input type="number" name="thu_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[10];}?> width="10"></td>
-                        <td><input type="number" name="fri_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[11];}?> width="10"></td>
-                        <td><input type="number" name="sat_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[12];}?> width="10"></td>
-                        <td><input type="number" name="sun_00_30"value=<?php if (isset($quantityArr)) {echo $quantityArr[13];}?> width="10"></td>
+                        <td><input type="number" name="mon_00_30" width="10"></td>
+                        <td><input type="number" name="tue_00_30" width="10"></td>
+                        <td><input type="number" name="wed_00_30" width="10"></td>
+                        <td><input type="number" name="thu_00_30" width="10"></td>
+                        <td><input type="number" name="fri_00_30" width="10"></td>
+                        <td><input type="number" name="sat_00_30" width="10"></td>
+                        <td><input type="number" name="sun_00_30" width="10"></td>
                       </tr>
                       <tr>
                         <td>01:00</td>
-                        <td><input type="number" name="mon_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[14];}?> width="10"></td>
-                        <td><input type="number" name="tue_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[15];}?> width="10"></td>
-                        <td><input type="number" name="wed_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[16];}?> width="10"></td>
-                        <td><input type="number" name="thu_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[17];}?> width="10"></td>
-                        <td><input type="number" name="fri_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[18];}?> width="10"></td>
-                        <td><input type="number" name="sat_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[19];}?> width="10"></td>
-                        <td><input type="number" name="sun_01_00"value=<?php if (isset($quantityArr)) {echo $quantityArr[20];}?> width="10"></td>
+                        <td><input type="number" name="mon_01_00" width="10"></td>
+                        <td><input type="number" name="tue_01_00" width="10"></td>
+                        <td><input type="number" name="wed_01_00" width="10"></td>
+                        <td><input type="number" name="thu_01_00" width="10"></td>
+                        <td><input type="number" name="fri_01_00" width="10"></td>
+                        <td><input type="number" name="sat_01_00" width="10"></td>
+                        <td><input type="number" name="sun_01_00" width="10"></td>
                       </tr>
                       <tr>
                         <td>01:30</td>
@@ -214,6 +244,7 @@
                       </tr>
                       </tr>
                     </table>
+
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <button type="submit">submit</button>
                 </form>
