@@ -33,6 +33,9 @@
             .title {
                 font-size: 96px;
             }
+            input.sample4{
+            width:30px;
+            }
         </style>
     </head>
     <body>
@@ -49,29 +52,88 @@
                     $j=0;
                     $hour=0;
                     $min=0;
-                    $date = array("月","火","水","木","金","土","日");
-                    echo '<table border="1">';
-                    foreach ($quantityArr2 as $key => $value) {
-//                        echo $key.":".$value."<br>";
-if ($i==0) {
-    echo '<td>'.$date[$j].'</td>';
-    $j++;
-}
-                        echo '<td><input type="number" name='.$timeArr3[$key].' value='.$value.' width="10"></td>';
-                        if ($i==47) {
-                            echo "<tr></tr>";
-                            $i=-1;
-                        }
-                        $i++;
+                    $date = array("月","火","水","木","金","土","日");//曜日表示のための配列
+                    $time = array();//時刻表示で並び替えをするための配列
+                    $jn = 0;
+                    for ($j=0; $j < 48 ; $j++) {
+                      for ($n=0; $n < 7 ; $n++) {
+                        $jn++;
+                        $time[$jn]=$jn;
+                      //echo $time[$jn];
+                      }
+                      //echo "<br>";
+                    }
+                    $jcount=0;
+                    for ($j=0; $j < 336 ; $j++) {
+                      $time[$jcount]=$j*$jcount;
+                      echo ":".$time[$jcount];
+                      echo "<br>";
+                      $jcount++;
+                      /*if ($j%48==0) {
+                        $time[$jcount]=$j;
+                        echo "48倍".$time[$jcount];
+                        echo "<br>";
+                        $jcount++;
+                      }*/
+                    }
+                    print_r($time);
+                    echo '
+                    <label for="time">店舗に予約可能な回数を入力し、設定を保存します。</label><br>
+                    <form method="post" action="../shop" accept-charset="UTF-8">
+                    ';
+                    echo '<table align="center" border="1">';
+                    echo '<th>'."-".'</th>';//１行目始まり（テーブルヘッダー）
 
+                    for ($k=0; $k < 7; $k++) {//テーブルヘッダー作成を繰り返す
+                        echo '<th>'.$date[$k].'</th>';
+                        //echo '<td>'.$j."日後".'</td>';
+                    }
+                    echo '<tr></tr>';//１行目終わり
+
+                    $timeArr4 = array();
+                    $quantityArr2value = array();
+                    foreach ($quantityArr2 as $key => $value) {
+                        $timeArr4[$i] = $timeArr3[$key];
+                        $quantityArr2value[$i] = $value;
+                        //echo '<td><input type="number" name='.$timeArr3[$key].' value='.$value.' class="sample4"></td>';
+                        $i++;
+                    }
+                    $len = count($quantityArr2value);
+                    $a = $len/7;
+                    for ($i=0; $i < $a ; $i++) {
+                      if ($i%7==0) {//７件づつ改行
+                        if ($i!=0) {
+                          echo '<tr></tr>';
+                        }
+                      }
+                      if ($i%7==0) {//７件づつ時刻表示
+                        echo '<td align="right">'.$hour.":".$min.'</td>';
+                        if ($min==0) {
+                            $min=30;
+                        }else {
+                            $min=0;
+                            $hour++;
+                        }
+                        /*
+                        echo '<td>'.$hour.":".$min.'</td>';//テーブルヘッダーの時刻を作成・表示
+                        if ($min==0) {
+                            $min=30;
+                        }else {
+                            $min=0;
+                            $hour++;
+                        }
+                        */
+                      }
+                      echo '<td><input type="number" name='.$timeArr4[$i].' value='.$quantityArr2value[$i].' class="sample4"></td>';
                     }
                     echo "</table>";
-
+                    echo '
+                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                        <button type="submit">submit</button>
+                    </form>';
                 }
                 ?>
-                <form method="post" action="../shop" accept-charset="UTF-8">
-                    <label for="time">日時ごとに予約可能な数を入力し格納します。</label><br>
-
+<!--
                     <table border="1">
 
                       <tr>
@@ -244,10 +306,8 @@ if ($i==0) {
                       </tr>
                       </tr>
                     </table>
+-->
 
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <button type="submit">submit</button>
-                </form>
               </br></br></br></br>
             </div>
         </div>
