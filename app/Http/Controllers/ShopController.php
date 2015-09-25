@@ -79,7 +79,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        return 'CREATE Successfully done!';
     }
 
     /**
@@ -191,7 +191,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show Successfully done!';
     }
 
     /**
@@ -202,7 +202,7 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit Successfully done!';
     }
 
     /**
@@ -214,7 +214,7 @@ class ShopController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'update Successfully done!';
     }
 
     /**
@@ -225,6 +225,6 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'destroy Successfully done!';
     }
 }

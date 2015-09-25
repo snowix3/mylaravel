@@ -112,8 +112,8 @@
                           echo '<tr></tr>';
                         }
                       }
-                      if ($i%7==0) {//７件づつ時刻表示。３０分ごとに表示する。
-                        echo '<td align="right">'.$hour.":".$min.'</td>';//テーブル左端の時刻作成
+                      if ($i%7==0) {//７件づつ時刻表示。３０分ごとに表示する。sprintf('%02d', $hour)はゼロ埋め
+                        echo '<td align="right">'.sprintf('%02d', $hour).":".sprintf('%02d', $min).'</td>';//テーブル左端の時刻作成
                         if ($min==0) {
                             $min=30;
                         }else {
@@ -134,6 +134,20 @@
                 }
                 ?>
               </br></br></br></br>
+              <p>レストフルルーティング CREATE：データベースに店舗を追加（新規レコード作成）</p>
+              <form action="../shop/create" method="GET" accept-charset="UTF-8">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit">確定</button>
+              </form>
+              </br></br>
+
+              <p>レストフルルーティング SHOW：</p>
+              <form action="../shop" method="GET" accept-charset="UTF-8">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit">確定</button>
+              </form>
+              </br></br>
             </div>
         </div>
     </body>
