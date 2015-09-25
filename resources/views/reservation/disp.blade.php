@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <?php
-      header("Content-Type: text/html; charset=UTF-8");
-      echo "UTF-8です";
-      ?>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Laravel</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
@@ -43,15 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
-                <a href="test"><button value="test">TEST</button></a>
-                <a href="test0"><button value="test0">TEST0</button></a>
-                <a href="task"><button value="task">task</button></a>
-                <a href="create"><button value="create">create</button></a>
-                <a href="model"><button value="model">model</button></a>
-                <a href="ajaxtest"><button value="ajaxtest">AJAX</button></a>
-                <a href="shop"><button value="shop">Shop</button></a>
-                <a href="disp"><button value="disp">Disp</button></a>
+                <div class="title">DISP OK</div>
             </div>
         </div>
     </body>
