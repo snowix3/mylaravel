@@ -58,6 +58,7 @@ class ShopController extends Controller
                     $timeArr3[$i]=$timeArr2[0];
 //                    echo $timeArr3[$i]."</br>";
 //                    echo $quantityArr2[$i]."</br>";
+//devブランチコミットテスト
                   }
                 }
                 $j++;
