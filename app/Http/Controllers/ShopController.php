@@ -48,19 +48,12 @@ class ShopController extends Controller
                 $timeArr2[$j] = $key2;
                 if ($i>=4) {
                   if ($j==0) {
-                    //echo $quantityArr2[$j]."</br>";
                     $quantityArr[$i] = DB::table('shop_reservation_disp_jonathans')
                           ->lists($timeArr2[$j]);
                     foreach ($quantityArr[$i] as $key3) {
                         $quantityArr2[$i]=$key3;
-                  //      echo $quantityArr2[$i]."<br>";
                     }
                     $timeArr3[$i]=$timeArr2[0];
-//                    echo $timeArr3[$i]."</br>";
-//                    echo $quantityArr2[$i]."</br>";
-//devブランチコミットテスト
-//testブランチコミットテスト
-//masterコミット
                   }
                 }
                 $j++;
@@ -68,7 +61,6 @@ class ShopController extends Controller
             $j=0;
             $i++;
         }
-//        echo $quantityArr2[7]."</br>";
         return view('reservation/shop')->with('timeArr3',$timeArr3)->with('quantityArr2',$quantityArr2);
     }
 

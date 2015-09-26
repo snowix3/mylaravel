@@ -143,11 +143,32 @@
 
               <p>レストフルルーティング SHOW：</p>
               <form action="../shop" method="GET" accept-charset="UTF-8">
-                <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <button type="submit">確定</button>
               </form>
               </br></br>
+
+              <p>レストフルルーティング edit:</p>
+              <form action="../shop/{shop}/edit" method="GET" accept-charset="UTF-8">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit">確定</button>
+              </form>
+              </br></br>
+
+              <p>レストフルルーティング delete:</p>
+              <form action="../shop/{shop}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit">確定</button>
+              </form>
+
+              <p>レストフルルーティング put:</p>
+              <form action="../shop/{shop}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit">確定</button>
+              </form>
+
             </div>
         </div>
     </body>
