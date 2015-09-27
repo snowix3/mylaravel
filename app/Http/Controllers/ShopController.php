@@ -27,7 +27,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
+        $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=2');//ID=1のレコードを取りにいく。
         $c=0;
         $key;
         foreach ($dbArr as $key1) {
@@ -127,7 +127,7 @@ class ShopController extends Controller
           //echo   "quantity配列：".$quantityArr[$i]."</br>";
           //echo $quantityArr[$i];
           DB::table('shop_reservation_disp_jonathans')
-                ->where('id', 1)
+                ->where('id', 2)//ID=1のレコードを取りにいく。
                 ->update([$timeArr[$i] => $quantityArr[$i]]);
           $i++;
       }
@@ -139,7 +139,7 @@ class ShopController extends Controller
       $timeArr3 = array();
       $quantityArr = array();
       $quantityArr2 = array();
-      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
+      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=2');//ID=1のレコードを取りにいく。
       $c=0;
       $key;
       foreach ($dbArr as $key1) {
