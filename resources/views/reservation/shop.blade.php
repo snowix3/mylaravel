@@ -84,7 +84,7 @@
                     <form method="post" action="../shop" accept-charset="UTF-8">
                     ';
                     echo '<table align="center" border="1">';
-                    echo '<th>'."-".'</th>';//１行目始まり（テーブルヘッダー）
+                    echo '<th>'."時刻".'</th>';//１行目始まり（テーブルヘッダー）
 
                     for ($k=0; $k < 7; $k++) {//テーブルヘッダー作成を繰り返す
                         echo '<th>'.$date[$k].'</th>';
@@ -130,14 +130,14 @@
                         <p>変更した設定を保存する</p><button type="submit">確定</button>
                     </form>';
                 }else {
-                  echo "E001:配列が存在していません。作成依頼してください・";
+                  echo "E001:配列が存在していません。作成依頼してください。";
                 }
                 ?>
               </br></br></br></br>
               <p>レストフルルーティング CREATE：データベースに店舗を追加（新規レコード作成）</p>
               <form action="../shop/create" method="GET" accept-charset="UTF-8">
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                <button type="submit">確定</button>
+                <button type="submit">爆発</button>
               </form>
               </br></br>
 
