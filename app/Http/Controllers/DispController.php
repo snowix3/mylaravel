@@ -17,9 +17,27 @@ class DispController extends Controller
      */
     public function index()
     {
-      return view('reservation/disp');
+      $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
+      $dbtime;//DBの現在時刻を格納。
+      foreach ($now as $key1 => $value1) {
+        foreach ($value1 as $key2 => $value2) {
+          $dbtime = $value2;
+        }
+      }
+      return view('reservation/disp')->with('dbtime',$dbtime);
     }
-
+/*
+$now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
+$dbtime;//DBの現在時刻を格納。
+foreach ($now as $key1 => $value1) {
+  foreach ($value1 as $key2 => $value2) {
+    $dbtime = $value2;
+  }
+}
+echo "aaaaaaaaaaaaa";
+echo $dbtime;
+return view('reservation/disp');
+*/
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +45,7 @@ class DispController extends Controller
      */
     public function create()
     {
-        //
+        return 'store Successfully done!';
     }
 
     /**
@@ -41,15 +59,23 @@ class DispController extends Controller
       $user_name = $request->input('user_name');
       $detail = $request->input('detail');
       $reservation_time = $request->input('reservation_time');
-
+      $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
+      $dbtime;//DBの現在時刻を格納。
+      foreach ($now as $key1 => $value1) {
+        foreach ($value1 as $key2 => $value2) {
+          $dbtime = $value2;
+        }
+      }
       DB::table('shop_reservation_jonathans')->insert(['user_name' => $user_name, 'detail' => $detail, 'reservation_time' => $reservation_time]);
 
+      //print_r($now);
       /*日付から曜日を取得する*/
-      $datetime = date_create($reservation_time);
-      echo $reservation_time;
+      //$datetime = date_create($reservation_time);
+      $datetime = date_create($dbtime);//DBの時刻をいれる
+      //echo $reservation_time;
       $week = array("日", "月", "火", "水", "木", "金", "土");
       $w = (int)date_format($datetime, 'w');
-      echo $week[$w];
+      //echo $week[$w];
       return 'store Successfully done!';
     }
 
@@ -61,7 +87,7 @@ class DispController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show Successfully done!';
     }
 
     /**
@@ -72,7 +98,7 @@ class DispController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit Successfully done!';
     }
 
     /**
@@ -84,7 +110,7 @@ class DispController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'update Successfully done!';
     }
 
     /**
@@ -95,6 +121,6 @@ class DispController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'destroy Successfully done!';
     }
 }
