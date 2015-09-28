@@ -27,15 +27,16 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=2');//ID=1のレコードを取りにいく。
+      try {
+      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
         $c=0;
         $key;
         foreach ($dbArr as $key1) {
           $key=$key1;
           $c++;
         }
+        if (isset($key)){//DBの存在チェック
         $c=0;
-
         foreach ($key as $key2) {//キー名を取得
           $keyArr[$c]=key($key);
           $c++;
@@ -48,32 +49,15 @@ class ShopController extends Controller
           $c++;
         }
         array_splice($valueArr, 0, 4);//$valueArrには値が格納されている。配列の4番目までを削除
-/*
-        $i=0;
-        $j=0;
-        $array = DB::select("show columns from shop_reservation_disp_jonathans");
-        foreach ($array as $key) {
-            $timeArr[$i] = $key;//カラム名取得
-            foreach ($timeArr[$i] as $key2) {//カラム名取得
-                $timeArr2[$j] = $key2;//カラム名取得
-                if ($i>=4) {//カラム名取得 4以下無視
-                  if ($j==0) {//カラム名取得したときに実行
-                    $quantityArr[$i] = DB::table('shop_reservation_disp_jonathans')->lists($timeArr2[$j]);//カラム名で値を取得し配列に保存
-                    //foreach ($arrayED[$i] as $key3) {
-                    foreach ($quantityArr[$i] as $key3) {
-                        $quantityArr2[$i]=$key3;//取り出した値が全部はいってる
-                        //echo $quantityArr2[$i]."<br>";//値が入る
-                    }
-                    $timeArr3[$i]=$timeArr2[0];
-                    //echo $timeArr3[$i]."<br>";
-                  }
-                }
-                $j++;
-            }
-            $j=0;
-            $i++;
-        }
-*/
+        }else {//エラー時
+            $e="E002:ueueruts error";
+            return view('reservation/shop')->with('e',$e);
+          }
+
+      } catch (Exception $e) {//エラー時
+//        echo "E003:".$e;
+        return view('reservation/shop')->with('e',$e);
+      }
         return view('reservation/shop')->with('timeArr3',$keyArr)->with('quantityArr2',$valueArr);
     }
 
@@ -84,8 +68,8 @@ class ShopController extends Controller
      */
     public function create()
     {
-        DB::insert('insert into shop_reservation_disp_jonathans(id)values(4)');
-        return view('/');
+        DB::insert('insert into shop_reservation_disp_jonathans(id)values(1)');//指定したIDのレコードを作成する。
+        return 'create Successfully done!<br><a href="../">TOP</a>';
     }
 
     /**
@@ -124,10 +108,8 @@ class ShopController extends Controller
           }
 
           $quantityArr[$i] = $value;
-          //echo   "quantity配列：".$quantityArr[$i]."</br>";
-          //echo $quantityArr[$i];
           DB::table('shop_reservation_disp_jonathans')
-                ->where('id', 2)//ID=1のレコードを取りにいく。
+                ->where('id', 1)//ID=1のレコードを取りにいく。
                 ->update([$timeArr[$i] => $quantityArr[$i]]);
           $i++;
       }
@@ -139,7 +121,7 @@ class ShopController extends Controller
       $timeArr3 = array();
       $quantityArr = array();
       $quantityArr2 = array();
-      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=2');//ID=1のレコードを取りにいく。
+      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
       $c=0;
       $key;
       foreach ($dbArr as $key1) {
@@ -161,20 +143,6 @@ class ShopController extends Controller
       }
       array_splice($valueArr, 0, 4);//$valueArrには値が格納されている。配列の４番目までを削除
       return view('reservation/shop')->with('timeArr3',$keyArr)->with('quantityArr2',$valueArr);
-//      return view('reservation/shop')->with('timeArr3',$timeArr3)->with('quantityArr2',$quantityArr2);
-      //ここまで
-//      return view('reservation.shop')->with('quantityArr',$quantityArr);
-
-//      print_r($request->all());
-//UPDATE 対象となるテーブル SET 更新対象となる列名 = 新しく更新するデータ WHERE 検索条件対象となる列名 = 検索条件対象となるフィールドの値;
-//SELECT *FROM 対象となるテーブル WHERE 検索条件対象となる列名 LIKE '%特定の文字列%';
-//      shop_reservation_disp_jonathans::update('UPDATE shop_reservation_disp_jonathans SET mon_01_00 = ? WHERE id = 1');
-//      shop_reservation_disp_jonathans::insert(['created_at' => $now]);//新規作成日時
-//      shop_reservation_disp_jonathans::update('s', ['1']);
-//mysql> delete from shop_reservation_disp_jonathans WHERE id = 2;
-//mysql> UPDATE shop_reservation_disp_jonathans SET mon_01_00 = 3 WHERE id = 1;
-//DB::statement('drop table users'); 通常のSQL文を実行
-
     }
 
     /**

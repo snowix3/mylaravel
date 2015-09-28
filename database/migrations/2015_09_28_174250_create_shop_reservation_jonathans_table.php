@@ -16,6 +16,7 @@ class CreateShopReservationJonathansTable extends Migration
             $table->increments('id');
             $table->integer('reservation_number');
             $table->string('user_name');
+            $table->timestamp('reservation_time');
             $table->integer('amount');
             $table->string('plan');
             $table->integer('head_count');
