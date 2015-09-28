@@ -24,6 +24,7 @@ class DispController extends Controller
           $dbtime = $value2;
         }
       }
+      echo "index";
       return view('reservation/disp')->with('dbtime',$dbtime);
     }
 /*
@@ -43,9 +44,10 @@ return view('reservation/disp');
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return 'store Successfully done!';
+        $user_name = $request->input('user_name');
+        return 'create Successfully done!';
     }
 
     /**
@@ -56,8 +58,8 @@ return view('reservation/disp');
      */
     public function store(Request $request)
     {
-      $user_name = $request->input('user_name');
-      $detail = $request->input('detail');
+//      $user_name = $request->input('user_name');
+//      $detail = $request->input('detail');
       $reservation_time = $request->input('reservation_time');
       $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
       $dbtime;//DBの現在時刻を格納。
@@ -66,7 +68,10 @@ return view('reservation/disp');
           $dbtime = $value2;
         }
       }
-      DB::table('shop_reservation_jonathans')->insert(['user_name' => $user_name, 'detail' => $detail, 'reservation_time' => $reservation_time]);
+      DB::table('shop_reservation_jonathans')
+      ->insert([//'user_name' => $user_name,
+      //'detail' => $detail, 
+      'reservation_time' => $reservation_time]);
 
       //print_r($now);
       /*日付から曜日を取得する*/

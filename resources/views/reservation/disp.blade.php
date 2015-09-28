@@ -34,6 +34,22 @@
                 font-size: 96px;
             }
 
+            table, td{
+            border:1px solid black;
+            padding:0;
+            }
+            .tdlink a{
+            height:100%;
+            text-decoration: none;
+            display:block;
+            padding:5px;
+            }
+            .tdlink a:hover{
+            color:white;
+            background:rgb(185, 192, 194);
+            }
+
+
         </style>
     </head>
     <body>
@@ -49,12 +65,13 @@
                 //  echo $week[date('w',strtotime($dbtime))]."曜日";
                   //echo date("m月");
                 ?>
-                <form action="../disp" method="post" accept-charset="UTF-8">
 
-                  <table border="1">
+
+                  <table border="1" class="tdlink">
                     <th colspan="8">本日から6日後まで予約できます。</th>
                     <tr></tr>
-                    <th>-</th>
+                    <!--１行目に曜日を表示する。取得した$dbtimeを元に曜日を数値で出して、配列の文字列に置き換えて表示。-->
+                    <th>---</th>
                     <th><?php echo $week[date('w',strtotime($dbtime))]; ?></th>
                     <th><?php echo $week[date('w',strtotime($dbtime.("+1 day")))]; ?></th>
                     <th><?php echo $week[date('w',strtotime($dbtime.("+2 day")))]; ?></th>
@@ -63,7 +80,8 @@
                     <th><?php echo $week[date('w',strtotime($dbtime.("+5 day")))]; ?></th>
                     <th><?php echo $week[date('w',strtotime($dbtime.("+6 day")))]; ?></th>
                     <tr></tr>
-                    <td>-</td>
+                    <!--２行目には$dbtimeを元に当日含め１週間、６日後までを表示する。-->
+                    <td></td>
                     <td><?php echo date("m月d日");?></td>
                     <td><?php echo date("m月d日",strtotime($dbtime."+1 day"));?></td>
                     <td><?php echo date("m月d日",strtotime($dbtime."+2 day"));?></td>
@@ -72,43 +90,62 @@
                     <td><?php echo date("m月d日",strtotime($dbtime."+5 day"));?></td>
                     <td><?php echo date("m月d日",strtotime($dbtime."+6 day"));?></td>
                     <tr></tr>
-                    <td>00:00</td>
+
                     <?php
-                    echo '<td name='.date('Y-m-d ', strtotime($dbtime))."00:00:00".'value='.date('Y-m-d ', strtotime($dbtime))."00:00:00".'>
-                    <a href="#">'.date('Y-m-d ', strtotime($dbtime))."00:00:00".'</a></td>';
+                    $hour=0;
+                    $min=0;
+                    $c=0;
+                    for ($n=0; $n < 48 ; $n++) {
+                      echo '<td align="right">'.sprintf('%02d', $hour).":".sprintf('%02d', $min).'</td>';//テーブル左端の時刻作成
+                      for ($i=0; $i < 7 ; $i++) {
+                        /*このaタグを押すと同じ$cの値のformが押される。各マスごとの時間が所定の形式でコントローラーに送られ、DBに入る。*/
+                        echo '<td  align="center"><a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
+                        echo '
+                        <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
+                          <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
+                          <input type="hidden" name="_token" value="'.csrf_token().'">
+                        </form>
+                        ';
+                        $c++;
+                      }
+                        echo "<tr></tr>";
+                        if($min==0){
+                            $min=30;
+                        }else{
+                            $min=0;
+                            $hour++;
+                        }
+                      }
+                    ?>
+                    <?php
+//                    echo '<td name='.date('Y-m-d ', strtotime($dbtime))."00:00:00".'value='.date('Y-m-d ', strtotime($dbtime))."00:00:00".'>
+//                    <a href="#">'.date('Y-m-d ', strtotime($dbtime))."99:99:99".'</a></td>';
                     //ここに予約在庫数に問い合わせて、在庫数に対して幾つ予約があるかを問い合わせて差分を表示する。
+                    //同じ場所からaタグクリックで予約追加もする。
                     ?>
-                    <?php
-                    echo '<td name='.date('Y-m-d ', strtotime($dbtime."+1 day"))."00:00:00".'value='.date('Y-m-d ', strtotime($dbtime."+1 day"))."00:00:00".'>
-                    <a href="#">'.date('Y-m-d ', strtotime($dbtime."+1 day"))."00:00:00".'</a></td>';
-                    ?>
-                    <td>O</td>
-                    <td>O</td>
-                    <td>O</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <tr></tr>
-                    <td>00:30</td>
-                    <?php
-                    echo '<td name='.date('Y-m-d ', strtotime($dbtime."+0 day"))."00:30:00".'value='.date('Y-m-d ', strtotime($dbtime."+0 day"))."00:30:00".'>
-                    <a href="#">'.date('Y-m-d ', strtotime($dbtime."+0 day"))."00:30:00".'</a></td>';
-                    ?>
-                    <td>O</td>
-                    <td>O</td>
-                    <td>X</td>
-                    <td>X</td>
-                    <td>O</td>
-                    <td>O</td>
+
                   </table>
-                <p>予約追加</p>
+              </br>
+<!--
+              <a href="../disp" onclick="document.form1.submit();return false;">aタグアクションテスト</a>
+              <form name="form1" method="post" action="../disp" accept-charset="UTF-8">
                 user_name<input type="text" name="user_name"></textarea><br>
                 detail<input type="text" name="detail"></textarea><br>
-                reservation_time<input type="text" name="reservation_time" value="<?php echo date("Y-m-d H:i:s");?>"></textarea><br>
+                reservation_time<input type="text" name="reservation_time" value="<?php //echo date("Y-m-d H:i:s");?>"></textarea><br>
+                <input type="hidden" name="_token" value="<?php //echo csrf_token(); ?>">
+              </form>
+              </br>
 
+              <p>予約追加テスト</p>
+              <form action="../disp" method="post" accept-charset="UTF-8">
+                user_name<input type="text" name="user_name"></textarea><br>
+                detail<input type="text" name="detail"></textarea><br>
+                reservation_time<input type="text" name="reservation_time" value="<?php //echo date("Y-m-d H:i:s");?>"></textarea><br>
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <button type="submit">予約</button>
               </form>
-              </br></br>
+-->
+              </br>
             </div>
         </div>
     </body>
