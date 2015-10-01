@@ -107,9 +107,16 @@
                       echo '<td align="right">'.sprintf('%02d', $hour).":".sprintf('%02d', $min).'</td>';//テーブル左端の時刻作成
                       for ($i=0; $i < 7 ; $i++) {
                         /*このaタグを押すと同じ$cの値のformが押される。各マスごとの時間が所定の形式でコントローラーに送られ、DBに入る。*/
+
+                        $admin=0;//1なら管理者画面で表示。
+                        if ($admin==1) {
+                          $ac = $a[$c];
+                        }else {
+                          $ac = "";
+                        }
                         //在庫数が０なら弾く'.$a[$c].'
                         if ($a[$c]>0) {
-                          echo '<td  align="center"><a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
+                          echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
                           echo '
                           <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
                             <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
@@ -117,7 +124,7 @@
                           </form>
                           ';
                         }else {
-                          echo '<td  align="center"><a href="#" onclick="document.form'.$c.'.submit();return false;">X</a></td>';
+                          echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">X</a></td>';
                         }
                         $c++;
                       }
