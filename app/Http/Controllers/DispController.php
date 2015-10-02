@@ -114,23 +114,9 @@ class DispController extends Controller
      */
     public function store(Request $request)
     {
-//      $user_name = $request->input('user_name');
-//      $detail = $request->input('detail');
       $reservation_time = $request->input('reservation_time');
       $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      $dbtime;//DBの現在時刻を格納。
-      foreach ($now as $key1 => $value1) {
-        foreach ($value1 as $key2 => $value2) {
-          $dbtime = $value2;
-        }
-      }
-      DB::table('shop_reservation_jonathans')
-      ->insert([//'user_name' => $user_name,
-      //'detail' => $detail,
-      'reservation_time' => $reservation_time]);
-      $datetime = date_create($dbtime);//DBの時刻をいれる
-      $week = array("日", "月", "火", "水", "木", "金", "土");
-      $w = (int)date_format($datetime, 'w');//echo $week[$w];
+      DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time]);
       return 'store Successfully done!';
     }
 
