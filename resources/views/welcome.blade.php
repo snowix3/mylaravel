@@ -48,9 +48,6 @@
                 <a href="ajaxtest"><button value="ajaxtest">AJAX</button></a>
                 <a href="shop"><button value="shop">Shop</button></a>
                 <a href="disp"><button value="disp">Disp</button></a>
-                <a href="cache"><button value="cache">Cache
-                </button></a>
-
             </div>
         </div>
     </body>
