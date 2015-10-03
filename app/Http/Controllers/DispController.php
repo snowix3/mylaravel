@@ -38,7 +38,7 @@ class DispController extends Controller
         for ($i=0; $i < 48 ; $i++){
           for ($j=0; $j < 7; $j++) {
             $dbcountArr = DB::select('select count(reservation_time) from shop_reservation_jonathans
-            where reservation_time="'.date('Y-m-d ', strtotime($dbtime.("+$j day"))).$hour.':'.$min.':00"');
+            where reservation_time="'.date('Y-m-d ', strtotime($dbtime.("+$j day"))).$hour.':'.$min.':00" AND shop_name="jonathans"');
             foreach ($dbcountArr as $key1 => $value1) {
               foreach ($value1 as $key2 => $value2) {
                 $dbcount[$c] = $value2;
@@ -116,7 +116,7 @@ class DispController extends Controller
     {
       $reservation_time = $request->input('reservation_time');
       $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time]);
+      DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
       return 'store Successfully done!';
     }
 

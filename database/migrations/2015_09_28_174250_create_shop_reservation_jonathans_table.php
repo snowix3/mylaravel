@@ -14,7 +14,7 @@ class CreateShopReservationJonathansTable extends Migration
     {
         Schema::create('shop_reservation_jonathans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reservation_number');
+            $table->string('shop_name');
             $table->string('user_name');
             $table->timestamp('reservation_time');
             $table->integer('amount');

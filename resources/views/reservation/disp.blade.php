@@ -111,10 +111,15 @@
                         }else {
                           $ac = "";
                         }
+                        $h=$hour;
+                        if ($h > 21) {
+                          $h=21;
+                        }
                         //当日の現在時刻＋２時間以前の予約を取れないようにする。
-                        if ($hour < date('H', strtotime($dbtime."+2 hour")) && $i==0){
+                        if ($h < date('H', strtotime($dbtime."+2 hour")) && $i==0){
+                          //date('H', strtotime($dbtime."+2 hour"))
                           echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
-                        }else {
+                        }else{
                           //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。
                           if ($a[$c]>0) {
                             echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
