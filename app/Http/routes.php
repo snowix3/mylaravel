@@ -42,6 +42,7 @@ Route::get('ajaxtest', function () {
 
 Route::resource('shop', 'ShopController');//RESTfulな書き方。これ１行で全部まかなえる。
 Route::resource('disp', 'DispController');//RESTfulな書き方。これ１行で全部まかなえる。
+Route::resource('cache', 'CacheController');//RESTfulな書き方。これ１行で全部まかなえる。
 
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
