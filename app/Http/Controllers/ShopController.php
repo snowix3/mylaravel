@@ -68,7 +68,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        DB::insert('insert into shop_reservation_disp_jonathans(id)values(1)');//指定したIDのレコードを作成する。
+        DB::insert('insert into shop_reservation_disp_jonathans(id,shop_name)values(1,"jonathans")');//指定したIDのレコードを作成する。shop_nameも指定すること。
         return 'create Successfully done!<br><a href="../">TOP</a>';
     }
 
