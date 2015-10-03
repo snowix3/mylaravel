@@ -40,6 +40,13 @@
         <div class="container">
             <div class="content">
                 <div class="title">plan admin</div>
+                <form method="post" action="../planadmin">
+                    plan1_price<input type="number" name="plan1_price"><br>
+                    plan1_name<input type="text" name="plan1_name"></textarea><br>
+                    plan1_detail<input type="text" name="plan1_detail"></textarea><br>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <button type="submit">submit</button>
+                </form>
             </div>
         </div>
     </body>

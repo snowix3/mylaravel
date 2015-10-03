@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +16,8 @@ class PlanadminController extends Controller
      */
     public function index()
     {
-        return View('reservation.planadmin');
+      echo "index success";
+      return View('reservation.planadmin');
     }
 
     /**
@@ -26,7 +27,8 @@ class PlanadminController extends Controller
      */
     public function create()
     {
-        //
+      echo "create success";
+      return View('reservation.planadmin');
     }
 
     /**
@@ -37,8 +39,14 @@ class PlanadminController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+      $plan1_price = $request->input('plan1_price');
+      $plan1_name = $request->input('plan1_name');
+      $plan1_detail = $request->input('plan1_detail');
+      echo "store success";
+      echo $plan1_price;
+      echo $plan1_name;
+      echo $plan1_detail;
+      return View('reservation.planadmin');}
 
     /**
      * Display the specified resource.
