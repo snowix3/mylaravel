@@ -39,13 +39,15 @@ class PlanadminController extends Controller
      */
     public function store(Request $request)
     {
-      $plan1_price = $request->input('plan1_price');
       $plan1_name = $request->input('plan1_name');
       $plan1_detail = $request->input('plan1_detail');
-      echo "store success";
-      echo $plan1_price;
-      echo $plan1_name;
-      echo $plan1_detail;
+      $plan1_price = $request->input('plan1_price');
+      DB::table('shop_plan_jonathans')->insert([
+      'id' => 1 ,
+      'shop_name' => 'jonathans',
+      'plan1_name' => $plan1_name,
+      'plan1_detail' => $plan1_detail,
+      'plan1_price' => $plan1_price]);
       return View('reservation.planadmin');}
 
     /**

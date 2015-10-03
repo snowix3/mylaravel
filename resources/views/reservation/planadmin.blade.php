@@ -45,7 +45,7 @@
                     plan1_name<input type="text" name="plan1_name"></textarea><br>
                     plan1_detail<input type="text" name="plan1_detail"></textarea><br>
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <button type="submit">submit</button>
+                    <button type="submit">ショッププラン新規作成</button>
                 </form>
             </div>
         </div>
