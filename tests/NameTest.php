@@ -1,17 +1,46 @@
 <?php
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Http\Controllers\Controller;
+
+use app\Http\Controllers\TestO;
+require_once("./app/Http/Controllers/TestO.php");
+
 class NameTest extends TestCase{
 
-public function testName(){
+	public function testName(){
 	
-$name = 'aaa';
-$Controller = $this->action('GET','Controller@hoge');
-$Controller->hoge();
+		$test = "aaa";
 
-$this->assertEquals($name,$Controller->hoge());
+		$this->test = new TestO();
+		$this->assertEquals($test,$this->test->name());
 
+	}
+
+	public function testTel(){
+	
+		$test = 09000000000;
+
+		$this->test = new TestO();
+		$this->assertEquals($test,$this->test->tel());
+
+	}
+
+public function testCusCount(){
+	
+		$test = "aaaaa";
+
+		$this->test = new TestO();
+		$this->assertEquals($test,$this->test->cusCount());
+
+	}
+
+public function testAddress(){
+	
+		$test = "aaa@co.jp";
+
+		$this->test = new TestO();
+		$this->assertEquals($test,$this->test->address());
+
+	}
 }
-}
+
+
+
