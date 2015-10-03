@@ -16,7 +16,7 @@ class PlanadminController extends Controller
      */
     public function index()
     {
-        return "plan admin controller success";
+        return View('reservation.planadmin');
     }
 
     /**
