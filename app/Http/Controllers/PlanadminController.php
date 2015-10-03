@@ -43,7 +43,6 @@ class PlanadminController extends Controller
       $plan1_detail = $request->input('plan1_detail');
       $plan1_price = $request->input('plan1_price');
       DB::table('shop_plan_jonathans')->insert([
-      'id' => 1 ,
       'shop_name' => 'jonathans',
       'plan1_name' => $plan1_name,
       'plan1_detail' => $plan1_detail,
