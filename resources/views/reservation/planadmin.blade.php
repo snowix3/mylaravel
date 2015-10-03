@@ -39,18 +39,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
-                <a href="test"><button value="test">TEST</button></a>
-                <a href="test0"><button value="test0">TEST0</button></a>
-                <a href="task"><button value="task">task</button></a>
-                <a href="create"><button value="create">create</button></a>
-                <a href="model"><button value="model">model</button></a>
-                <a href="ajaxtest"><button value="ajaxtest">AJAX</button></a>
-                <a href="shop"><button value="shop">Shop</button></a>
-                <a href="disp"><button value="disp">Disp</button></a>
-                <a href="cache"><button value="cache">Cache</button></a>
-                <a href="planadmin"><button value="planadmin">planadmin</button></a>
-
+                <div class="title">plan admin</div>
             </div>
         </div>
     </body>
