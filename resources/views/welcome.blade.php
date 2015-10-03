@@ -50,7 +50,8 @@
                 <a href="create"><button value="create">create</button></a>
                 <a href="model"><button value="model">model</button></a>
                 <a href="ajaxtest"><button value="ajaxtest">AJAX</button></a>
-
+                <a href="shop"><button value="shop">Shop</button></a>
+                <a href="disp"><button value="disp">Disp</button></a>
             </div>
         </div>
     </body>

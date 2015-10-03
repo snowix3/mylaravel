@@ -54,7 +54,9 @@
         <!--配列またはJSONの中身を表示-->
         <?php
           $array = json_decode($Model_Test);
-          print_r($Model_Test);
+          echo $Model_Test[0];
+
+          //print_r($Model_Test);
 
 //          $json = json_encode($Model_Test,true);
   //        echo $json->id//->id
