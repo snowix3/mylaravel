@@ -41,11 +41,34 @@
             <div class="content">
                 <div class="title">plan admin</div>
                 <form method="post" action="../planadmin">
-                    plan1_price<input type="number" name="plan1_price"><br>
-                    plan1_name<input type="text" name="plan1_name"></textarea><br>
-                    plan1_detail<input type="text" name="plan1_detail"></textarea><br>
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <button type="submit">ショッププラン新規作成</button>
+                <?php
+                  for ($i=1; $i < 6; $i++) {
+                    $price="plan".$i."_price";
+                    $name="plan".$i."_name";
+                    $detail="plan".$i."_detail";
+                    echo "<table align='center'>";
+                    echo '<td>プラン'.$i.'料金<input type="number" name="plan'.$i.'_price" value='.$dbArr->$price.'>
+                    <tr><td>プラン'.$i.'名前<input type="text" name="plan'.$i.'_name" value='.$dbArr->$name.'></textarea>
+                    <tr><td>プラン'.$i.'詳細<input type="text" name="plan'.$i.'_detail" value='.$dbArr->$detail.'></textarea><tr>
+                    ';
+                    echo "</table>";
+                  }
+                  echo '<input type="hidden" name="_token" value="'.csrf_token().'">
+                  <button type="submit">ショッププラン更新</button>'
+                ?>
+
+                </form>
+                <br>
+                <?php
+//                print_r($dbArr);
+                echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+                // echo $dbArr["shop_name"];
+                ?>
+
+                <p>CREATE：データベースに店舗プランを追加（新規レコード作成）</p>
+                <form action="../planadmin/create" method="GET" accept-charset="UTF-8">
+                  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                  <button type="submit">確定</button>
                 </form>
             </div>
         </div>
