@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cache;
+use Mail;
+use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,8 +18,12 @@ class CacheController extends Controller
      * @return Response
      */
     public function index()
+
     {
-        return view('reservation/cache');
+         $plan = DB::table('shop_plan_jonathans')->get();
+         
+         
+        return view('reservation/cache')->with('plan',$plan);
     }
 
     /**
@@ -26,7 +33,20 @@ class CacheController extends Controller
      */
     public function create()
     {
-  
+      $user_name = Cache::get('user_name');
+      $plan_select = Cache::get('plan_select');
+      $mail_domein = '@gmail.com';
+
+      $email = $user_name. $mail_domein;
+      echo $email.'にメールを送りました。';
+
+      $mail_text = $plan_select.'を予約しました';
+
+      Mail::raw($mail_text, function($message) use($email)
+      {
+       $message->to($email) ->subject('test');
+     });
+
     }
 
     /**
@@ -38,7 +58,11 @@ class CacheController extends Controller
     public function store(Request $request)
     {
       $user_name = $request->input('user_name');
-    return 'store Successfully done!';
+      $plan_select = $request->input('plan_select');
+      Cache::put('user_name', $user_name, 30);
+      Cache::put('plan_select', $plan_select, 30);
+
+        return view('reservation/cache');
 
 
     }
