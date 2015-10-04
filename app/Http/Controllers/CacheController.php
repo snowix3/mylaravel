@@ -26,7 +26,7 @@ class CacheController extends Controller
      */
     public function create()
     {
-        //
+  
     }
 
     /**
@@ -37,7 +37,10 @@ class CacheController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user_name = $request->input('user_name');
+    return 'store Successfully done!';
+
+
     }
 
     /**
