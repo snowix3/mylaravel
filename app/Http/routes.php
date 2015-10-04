@@ -44,6 +44,11 @@ Route::resource('shop', 'ShopController');//RESTfulな書き方。これ１行�
 Route::resource('disp', 'DispController');//RESTfulな書き方。これ１行で全部まかなえる。
 Route::resource('cache', 'CacheController');//RESTfulな書き方。これ１行で全部まかなえる。
 Route::resource('planadmin', 'PlanadminController');//RESTfulな書き方。これ１行で全部まかなえる。
+Route::get('createUser', function () {
+    return view('createUser');
+});
+//Route::post('postUser', 'PostUserController@postUser');
+Route::post('postUser', 'PostUserController@show');
 
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
