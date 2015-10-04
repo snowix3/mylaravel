@@ -16,8 +16,15 @@ class PlanadminController extends Controller
      */
     public function index()
     {
-      echo "index success";
-      return View('reservation.planadmin');
+      //DBのshop_plan_jonathansテーブルからjonathansという名前のお店の情報を全部ひっぱる
+      $dbArr = DB::select('select * from shop_plan_jonathans where shop_name="jonathans"');
+      //イテレータで配列から連想配列を取り出す。
+      foreach ($dbArr as $key => $value) {
+        $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
+        /*http://www.hiromedo.com/memo-to-log/?p=532*/
+      }
+      echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+      return View('reservation.planadmin')->with('dbArr',$dbArr);
     }
 
     /**
@@ -27,6 +34,8 @@ class PlanadminController extends Controller
      */
     public function create()
     {
+    //お店プランの新規作成
+    DB::insert('insert into shop_plan_jonathans(shop_name)values("jonathans")');
       echo "create success";
       return View('reservation.planadmin');
     }
@@ -39,15 +48,31 @@ class PlanadminController extends Controller
      */
     public function store(Request $request)
     {
-      $plan1_name = $request->input('plan1_name');
-      $plan1_detail = $request->input('plan1_detail');
-      $plan1_price = $request->input('plan1_price');
-      DB::table('shop_plan_jonathans')->insert([
-      'shop_name' => 'jonathans',
-      'plan1_name' => $plan1_name,
-      'plan1_detail' => $plan1_detail,
-      'plan1_price' => $plan1_price]);
-      return View('reservation.planadmin');}
+      //指定したお店に入力したプランの内容を追加する
+      for ($i=1; $i < 6 ; $i++) {
+        DB::table('shop_plan_jonathans')
+        ->where('id', 1)
+        ->update([
+        'shop_name' => 'jonathans',
+        'plan'.$i.'_name' => $request->input('plan'.$i.'_name'),
+        'plan'.$i.'_detail' => $request->input('plan'.$i.'_detail'),
+        'plan'.$i.'_price' => $request->input('plan'.$i.'_price')
+        ]);
+      }
+
+      /*表示ここから*/
+      //DBのshop_plan_jonathansテーブルからjonathansという名前のお店の情報を全部ひっぱる
+      $dbArr = DB::select('select * from shop_plan_jonathans where shop_name="jonathans"');
+      //イテレータで配列から連想配列を取り出す。
+      foreach ($dbArr as $key => $value) {
+        $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
+        /*http://www.hiromedo.com/memo-to-log/?p=532*/
+      }
+      echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+      /*表示ここまで*/
+
+      return View('reservation.planadmin')->with('dbArr',$dbArr);
+    }
 
     /**
      * Display the specified resource.
