@@ -31,7 +31,9 @@
      <div id="entry" class="page">
       <br><br><br>
       <h1>入力</h1>
-      アカウント名（アドレスになるのでここに送られる）
+      アカウント名（アドレスになるのでここに送られる）<br>
+      記入例:メールアドレスがsample@gmail.comの場合はsampleと入力する。<br>
+      <font color = red>今の設定だとgmailのみ使える。</font>
         <form action="../cache" method="POST" accept-charset="UTF-8">
         <input type="text" name="user_name">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
