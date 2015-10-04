@@ -45,9 +45,7 @@
 
         プラン一覧<br>
         
-        @foreach($plan as $plan)
-          {{"ショップ名:".$plan->shop_name." "."プラン名:".$plan->plan1_name."料金:".$plan->plan1_price."詳細:".$plan->plan1_detail}}<br>
-        @endforeach
+       
 
 
 
