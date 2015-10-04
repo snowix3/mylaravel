@@ -17,14 +17,20 @@ class PlanadminController extends Controller
     public function index()
     {
       //DBのshop_plan_jonathansテーブルからjonathansという名前のお店の情報を全部ひっぱる
-      $dbArr = DB::select('select * from shop_plan_jonathans where shop_name="jonathans"');
+
       //イテレータで配列から連想配列を取り出す。
+      if (DB::select('select * from shop_plan where shop_name="jonathans"')){
+      $dbArr = DB::select('select * from shop_plan where shop_name="jonathans"');
       foreach ($dbArr as $key => $value) {
         $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
         /*http://www.hiromedo.com/memo-to-log/?p=532*/
       }
-      echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
-      return View('reservation.planadmin')->with('dbArr',$dbArr);
+        echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+        return View('reservation.planadmin')->with('dbArr',$dbArr);
+      }else {
+        echo "E006:配列が存在しません。作成してください。";
+        return view('reservation.planadmin');
+      }
     }
 
     /**
@@ -35,9 +41,9 @@ class PlanadminController extends Controller
     public function create()
     {
     //お店プランの新規作成
-    DB::insert('insert into shop_plan_jonathans(shop_name)values("jonathans")');
+    DB::insert('insert into shop_plan(shop_name)values("jonathans")');
       echo "create success";
-      return View('reservation.planadmin');
+      return 'create Successfully done!<br><a href="../">TOP</a>';
     }
 
     /**
@@ -50,7 +56,7 @@ class PlanadminController extends Controller
     {
       //指定したお店に入力したプランの内容を追加する
       for ($i=1; $i < 6 ; $i++) {
-        DB::table('shop_plan_jonathans')
+        DB::table('shop_plan')
         ->where('id', 1)
         ->update([
         'shop_name' => 'jonathans',
@@ -62,7 +68,7 @@ class PlanadminController extends Controller
 
       /*表示ここから*/
       //DBのshop_plan_jonathansテーブルからjonathansという名前のお店の情報を全部ひっぱる
-      $dbArr = DB::select('select * from shop_plan_jonathans where shop_name="jonathans"');
+      $dbArr = DB::select('select * from shop_plan where shop_name="jonathans"');
       //イテレータで配列から連想配列を取り出す。
       foreach ($dbArr as $key => $value) {
         $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
