@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Cache;
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Cache;
-class PostUserController extends Controller
+
+class insertUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,13 +47,9 @@ class PostUserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-      $name = $request->input('name');
-      $userId = $request->input('userId');
-      $email = $request->input('email');
-      $password = $request->input('password');
-      $age = $request->input('age');
+        //
     }
 
     /**
@@ -89,20 +86,21 @@ class PostUserController extends Controller
         //
     }
 
-    public function postUser(Request $request)
+    public function insert()
     {
-      $name = $request->input('name');
-      $userId = $request->input('userId');
-      $email = $request->input('email');
-      $password = $request->input('password');
-      $age = $request->input('age');
-      Cache::put('name', $name, 10);
-      Cache::put('userId', $userId, 10);
-      Cache::put('email', $email, 10);
-      Cache::put('password', $password, 10);
-      Cache::put('age', $age, 10);
+      //$name = Cache::get('name');
+      //$userId = Cache::get('userId');
+      //$email = Cache::get('email');
+      //$password = Cache::get('password');
+      //$age = Cache::get('age');
+      DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
+      [Cache::get("name"),Cache::get('userId'),Cache::get('email'),Cache::get('password'),Cache::get('age')]);
+      //指定したIDのレコードを作成する。shop_nameも指定すること。
+      return 'insert Successfully done!<br><a href="../">TOP</a>';
 
-      return view('conformationUser',compact('name','userId','email','password','age'));
 
     }
+
+
+
 }

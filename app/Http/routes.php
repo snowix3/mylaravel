@@ -48,7 +48,12 @@ Route::get('createUser', function () {
     return view('createUser');
 });
 //Route::post('postUser', 'PostUserController@postUser');
-Route::post('postUser', 'PostUserController@show');
+//新規登録画面から確認画面にデータを送る
+Route::post('postUser', 'PostUserController@postUser');
+
+//新規登録確認画面からDBにデータをいれて完了に行く
+Route::post('insertUser', 'insertUserController@insert');
+
 
 // 実際にDBにデータを入れる
 Route::post('posts', 'PostController@store');
