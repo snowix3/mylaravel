@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Cache;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -115,9 +116,12 @@ class DispController extends Controller
     public function store(Request $request)
     {
       $reservation_time = $request->input('reservation_time');
-      $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
-      return 'store Successfully done!';
+      Cache::put('reservation_time', $reservation_time, 30);
+      $reservation_time = Cache::get('reservation_time');
+      echo "cache名:reservation_time:".$reservation_time;
+      //$now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
+      //DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
+      return view('createUser');
     }
 
     /**

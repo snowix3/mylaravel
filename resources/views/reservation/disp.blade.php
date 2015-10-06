@@ -120,7 +120,7 @@
                           //date('H', strtotime($dbtime."+2 hour"))
                           echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
                         }else{
-                          //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。
+                          //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。Cache::put('plan', 2015-10-10 22:22:22, 30);
                           if ($a[$c]>0) {
                             echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
                             echo '
