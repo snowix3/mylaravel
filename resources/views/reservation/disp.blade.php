@@ -111,26 +111,27 @@
                         }else {
                           $ac = "";
                         }
-                        $h=$hour;
-                        if ($h > 21) {
-                          $h=21;
-                        }
                         //当日の現在時刻＋２時間以前の予約を取れないようにする。
-                        if ($h < date('H', strtotime($dbtime."+2 hour")) && $i==0){
+                        if ($hour < date('H', strtotime($dbtime."+2 hour")) && $i==0){
                           //date('H', strtotime($dbtime."+2 hour"))
                           echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
                         }else{
-                          //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。Cache::put('plan', 2015-10-10 22:22:22, 30);
-                          if ($a[$c]>0) {
-                            echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
-                            echo '
-                            <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
-                              <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
-                              <input type="hidden" name="_token" value="'.csrf_token().'">
-                            </form>
-                            ';
-                          }else {
-                            echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">X</a></td>';
+                          //２２時すぎると全部とれてしまうエブリデイ２２時問題の解決。二時間すぎた時刻が翌日ならば当日は予約不可を表示。
+                          if (date('d', strtotime($dbtime."+0 hour")) < date('d', strtotime($dbtime."+2 hour")) && $i==0){
+                            echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
+                          }else{
+                            //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。
+                            if ($a[$c]>0) {
+                              echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
+                              echo '
+                              <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
+                                <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
+                                <input type="hidden" name="_token" value="'.csrf_token().'">
+                              </form>
+                              ';
+                            }else {
+                              echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">X</a></td>';
+                            }
                           }
                         }
                         $c++;
