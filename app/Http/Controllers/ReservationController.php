@@ -125,11 +125,11 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
       $reservation_time = $request->input('reservation_time');
-      Cache::put('reservation_time', $reservation_time, 30);
-      $reservation_time = Cache::get('reservation_time');
-      //$now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      //DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
-      return view('createUser');
+      DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
+      [Cache::get("name"),Cache::get('userId'),Cache::get('email'),Cache::get('password'),Cache::get('age')]);
+      DB::insert('insert into shop_reservation_jonathans (shop_name,user_name,reservation_time) values (?,?,?)',
+      ["jonathans",Cache::get('name'),Cache::get('reservation_time')]);
+      return 'insert Successfully done!<br><a href="../">TOP</a>';
     }
 
     /**
@@ -140,7 +140,7 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        return 'show Successfully done!';
+      return 'show Successfully done!';
     }
 
     /**

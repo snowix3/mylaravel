@@ -81,7 +81,7 @@
 
                   <p>プラン選択</p>
                   <form name="reservationform1">
-                    <select name="plan" onChange="onepage()">
+                    <select name="plan" onChange="page1()">
                       <option value="">プランを選択して日時予約へ</option>
                       <option value="plan1">プラン1</option>
                       <option value="plan2">プラン2</option>
@@ -167,13 +167,7 @@
                               //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。
                               if ($a[$c]>0) {
                                 echo '<td  align="center">'.$ac.'
-                                <a href="#" id="a1" onclick="twopage();">O</a></td>';
-                                echo '
-                                <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
-                                  <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
-                                  <input type="hidden" name="_token" value="'.csrf_token().'">
-                                </form>
-                                ';
+                                <a href="#" id="a'.$c.'" name="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'" onclick="page2(this);">O</a></td>';
                               }else {
                                 echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">X</a></td>';
                               }
@@ -192,40 +186,74 @@
                       ?>
                     </table>
                 </div>
+
+                <div id="reservation3">
+                  <form accept-charset="UTF-8">
+                      <label for="name">名前</label><br>
+                      <input type="text" id="name" name="name"><br><br>
+                      <label for="userId">ユーザーID</label><br>
+                      <input type="text" id="userId" name="userId"><br><br>
+                      <label for="email">メールアドレス</label><br>
+                      <input type="email" id="email" name="email"><br><br>
+                      <label for="password">パスワード</label><br>
+                      <input type="password" id="password" name="password"><br><br>
+                      <label for="age">年齢</label><br>
+                      <input type="number" id="age" name="age"><br><br>
+                      <button onclick="page3();return false;">submit</button>
+                  </form>
+                </div>
+
+                <div id="reservation4">
+
+                <form method="post" action="../reservation" accept-charset="UTF-8">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <button type="submit">登録</button>
+                </form>
+                </div>
             </div>
         </div>
 
         <!--画面内遷移-->
         <script>
-        var count =0;
         document.getElementById('reservation2').style.display = 'none';
-        function onepage(){
+        document.getElementById('reservation3').style.display = 'none';
+        document.getElementById('reservation4').style.display = 'none';
+        function page1(){
           var frm = document.forms["reservationform1"];
           var idx = frm.elements["plan"].selectedIndex;
           var plan = frm.elements["plan"].options[idx].value;
           console.log(plan);
           document.getElementById('reservation2').style.display = 'block';
-          count++;
-
-          var noTransition = document.getElementById("reservation");
-          noTransition.innerHTML = "";
+          document.getElementById('reservation').style.display = 'none';
         }
 
-        function twopage(){
-          console.log("test2 ok");
-//          console.log(document.getElementById("a1"));
-//          console.log(document.getElementById("a1").innerHTML);
-          console.log(document.getElementsByTagName("a1"));
-          count++;
-          var noTransition = document.getElementById("reservation2");
-          noTransition.innerHTML = "";
+        function page2(element){
+          var time = element.id;
+          console.log(document.getElementById(time).name);
+          document.getElementById('reservation3').style.display = 'block';
+          document.getElementById('reservation2').style.display = 'none';
         }
 
-        function do1(){
-          console.log("test3 ok");
-          count++;
-          var noTransition = document.getElementById("reservation");
-          noTransition.innerHTML = "<p>マジ実行しました</p>";
+        function page3(){
+          var name = document.getElementById("name");
+          var userId = document.getElementById("userId");
+          var email = document.getElementById("email");
+          var password = document.getElementById("password");
+          var age = document.getElementById("age");
+          console.log(name.value);
+          console.log(userId.value);
+          console.log(email.value);
+          console.log(password.value);
+          console.log(age.value);
+
+          document.getElementById('reservation4').style.display = 'block';
+          document.getElementById('reservation3').style.display = 'none';
+        }
+
+        function page4(){
+          console.log("test4 ok");
+          document.getElementById('reservation4').style.display = 'block';
+          document.getElementById('reservation3').style.display = 'none';
         }
         </script>
 
