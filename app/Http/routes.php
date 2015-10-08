@@ -47,6 +47,10 @@ Route::resource('planadmin', 'PlanadminController');//RESTfulな書き方。こ�
 Route::get('createUser', function () {
     return view('createUser');
 });
+Route::get('reservation', function () {
+    return view('reservation.reservation');
+});
+
 //Route::post('postUser', 'PostUserController@postUser');
 //新規登録画面から確認画面にデータを送る
 Route::post('postUser', 'PostUserController@postUser');

@@ -116,7 +116,7 @@
                           //date('H', strtotime($dbtime."+2 hour"))
                           echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
                         }else{
-                          //２２時すぎると全部とれてしまうエブリデイ２２時問題の解決。二時間すぎた時刻が翌日ならば当日は予約不可を表示。
+                          //２２時すぎると全部とれてしまう問題の解決。二時間すぎた時刻が翌日ならば当日は予約不可を表示。
                           if (date('d', strtotime($dbtime."+0 hour")) < date('d', strtotime($dbtime."+2 hour")) && $i==0){
                             echo '<td  align="center">'.$ac.'<a href="#" onclick="document.form'.$c.'.submit();return false;">---</a></td>';
                           }else{
