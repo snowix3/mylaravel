@@ -80,7 +80,7 @@
                   }?>
 
                   <p>プラン選択</p>
-                  <form name="test">
+                  <form name="reservationform1">
                     <select name="plan" onChange="onepage()">
                       <option value="">プランを選択して日時予約へ</option>
                       <option value="plan1">プラン1</option>
@@ -166,7 +166,8 @@
                             }else{
                               //在庫数が０ならXを表示して、予約できないようにする。在庫があればマルを表示してクリックで予約できる。
                               if ($a[$c]>0) {
-                                echo '<td  align="center">'.$ac.'<a href="../disp" onclick="document.form'.$c.'.submit();return false;">O</a></td>';
+                                echo '<td  align="center">'.$ac.'
+                                <a href="#" id="a1" onclick="twopage();">O</a></td>';
                                 echo '
                                 <form name="form'.$c.'" method="post" action="../disp" accept-charset="UTF-8">
                                   <input type="hidden" name="reservation_time" value="'.date('Y-m-d ', strtotime($dbtime."+$i day"))."$hour:$min:00".'">
@@ -199,7 +200,7 @@
         var count =0;
         document.getElementById('reservation2').style.display = 'none';
         function onepage(){
-          var frm = document.forms["test"];
+          var frm = document.forms["reservationform1"];
           var idx = frm.elements["plan"].selectedIndex;
           var plan = frm.elements["plan"].options[idx].value;
           console.log(plan);
@@ -212,9 +213,12 @@
 
         function twopage(){
           console.log("test2 ok");
+//          console.log(document.getElementById("a1"));
+//          console.log(document.getElementById("a1").innerHTML);
+          console.log(document.getElementsByTagName("a1"));
           count++;
-          var noTransition = document.getElementById("reservation");
-          noTransition.innerHTML = "<button value=\"do1\" onclick=\"do1()\">DO"+count+"</button>";
+          var noTransition = document.getElementById("reservation2");
+          noTransition.innerHTML = "";
         }
 
         function do1(){
