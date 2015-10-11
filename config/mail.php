@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    //'driver' => env('MAIL_DRIVER', 'smtp'), //デフォルト（.evnファイルを参照）
+    'driver' => 'smtp',//evnファイル不要
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    //'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'smtp.gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +43,9 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    //'port' => env('MAIL_PORT', 587),
+    'port' => 465,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +60,8 @@ return [
 
     /*'from' => ['address' => null, 'name' => null],*/
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', null),
-        'name' => env('MAIL_FROM_NAME', null)
+        'address' => 'nestplus2@gmail.com',
+        'name' => 'nestplus2'
         ],
 
     /*
@@ -71,7 +75,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', null),
+    'encryption' => 'ssl',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +88,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'nestplus2@gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +101,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => 'nestnest',
 
     /*
     |--------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ShopPlanJonathans extends Migration
+class ShopPlan extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class ShopPlanJonathans extends Migration
      */
     public function up()
     {
-        Schema::create('shop_plan_jonathans', function (Blueprint $table) {
+        Schema::create('shop_plan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('shop_name');
             $table->string('plan1_name');

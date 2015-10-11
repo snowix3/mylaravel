@@ -96,6 +96,8 @@ class insertUserController extends Controller
       DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
       [Cache::get("name"),Cache::get('userId'),Cache::get('email'),Cache::get('password'),Cache::get('age')]);
       //指定したIDのレコードを作成する。shop_nameも指定すること。
+      DB::insert('insert into shop_reservation_jonathans (shop_name,user_name,reservation_time) values (?,?,?)',
+      ["jonathans",Cache::get('name'),Cache::get('reservation_time')]);
       return 'insert Successfully done!<br><a href="../">TOP</a>';
 
 

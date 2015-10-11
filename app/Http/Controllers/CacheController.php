@@ -17,11 +17,12 @@ class CacheController extends Controller
      *
      * @return Response
      */
+    //プラン一覧表示メソッド
     public function index()
 
     {
-         $plan = DB::table('shop_plan_jonathans')->get();
-         
+      //DBの値を変数に格納
+         $plan = DB::table('shop_plan')->get();
          
         return view('reservation/cache')->with('plan',$plan);
     }
@@ -31,6 +32,7 @@ class CacheController extends Controller
      *
      * @return Response
      */
+    //メール送信メソッド
     public function create()
     {
       $user_name = Cache::get('user_name');
@@ -42,6 +44,7 @@ class CacheController extends Controller
 
       $mail_text = $plan_select.'を予約しました';
 
+      //メール送信
       Mail::raw($mail_text, function($message) use($email)
       {
        $message->to($email) ->subject('test');
@@ -55,6 +58,7 @@ class CacheController extends Controller
      * @param  Request  $request
      * @return Response
      */
+    //確認画面表示メソッド
     public function store(Request $request)
     {
       $user_name = $request->input('user_name');
