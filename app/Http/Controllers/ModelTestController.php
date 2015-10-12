@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\Model_Test;//レストフルコントローラーの実装のためには、Modelを指定しインポートする　use DB;もいらない
+use App\Model_Test;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 

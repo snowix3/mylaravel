@@ -8,6 +8,7 @@ use DB;
 use Cache;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\shop_reservation_jonathans;
 
 class DispController extends Controller
 {
@@ -115,12 +116,23 @@ class DispController extends Controller
      */
     public function store(Request $request)
     {
+      //送られてきた情報を受け取る
       $reservation_time = $request->input('reservation_time');
-      Cache::put('reservation_time', $reservation_time, 30);
-      $reservation_time = Cache::get('reservation_time');
-      //$now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      //DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
-      return view('createUser');
+      //shop_reservation_jonathansモデルを指定。そのなかのshop_nameがjonathansの物の
+      shop_reservation_jonathans::where('shop_name','jonathans')
+      //reservation_timeカラムにinsertする
+      ->insert(['reservation_time' => $reservation_time ]);
+      //ちなみにテーブルの指定はモデルで設定しているよ
+
+
+
+      //$reservation_time->save();
+      //$reservation_time = $request->input('reservation_time');
+      // Cache::put('reservation_time', $reservation_time, 30);
+      // $reservation_time = Cache::get('reservation_time');
+      // $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
+      // DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
+      return 'insert Successfully done!';
     }
 
     /**
