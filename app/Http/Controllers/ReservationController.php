@@ -126,13 +126,19 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-/*      $reservation_time = $request->input('reservation_time');
+      $plan = $request->input('planSpanH');
+      $time = $request->input('timeSpanH');
+      $userName = $request->input('userNameSpanH');
+      $userId = $request->input('userIdSpanH');
+      $email = $request->input('emailSpanH');
+      $password = $request->input('passwordSpanH');
+      $age = $request->input('ageSpanH');
+
       DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
-      [Cache::get("name"),Cache::get('userId'),Cache::get('email'),Cache::get('password'),Cache::get('age')]);
-      DB::insert('insert into shop_reservation_jonathans (shop_name,user_name,reservation_time) values (?,?,?)',
-      ["jonathans",Cache::get('name'),Cache::get('reservation_time')]);
-      */
-      Log::debug( Input::get('reservation') );
+      [$userName,$userId,$email,$password,$age]);
+      DB::insert('insert into shop_reservation_jonathans (shop_name,plan,user_name,reservation_time) values (?,?,?,?)',
+      ["jonathans",$plan,$userName,$time]);
+
       return 'insert Successfully done!<br><a href="../">TOP</a>';
     }
 

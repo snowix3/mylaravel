@@ -86,11 +86,11 @@
                   <form name="reservationform1">
                     <select name="plan" onChange="page1()">
                       <option value="">プランを選択して日時予約へ</option>
-                      <option value="plan1">プラン1</option>
-                      <option value="plan2">プラン2</option>
-                      <option value="plan3">プラン3</option>
-                      <option value="plan4">プラン4</option>
-                      <option value="plan5">プラン5</option>
+                      <option value="プラン1">プラン1</option>
+                      <option value="プラン2">プラン2</option>
+                      <option value="プラン3">プラン3</option>
+                      <option value="プラン4">プラン4</option>
+                      <option value="プラン5">プラン5</option>
                     </select>
                   </form>
                 <?php
@@ -210,21 +210,42 @@
 
                 <div id="reservation4">
                   <h1>予約情報確認画面</h1>
+                  <form method="POST" action="reservation" accept-charset="UTF-8">
                   <form accept-charset="UTF-8">
                     <label>プラン名</label><br>
                     <span id="planSpan">-</span><br><br>
+                    <input type="hidden" id="planSpanH" name="planSpanH" value="***">
+
+                    <label>プラン詳細</label><br>
+                    <span id="detailSpan">*</span><br><br>
+                    <input type="hidden" id="detailSpanH" name="detailSpanH" value="***">
+
                     <label>予約日時</label><br>
                     <span id="timeSpan">-</span><br><br>
+                    <input type="hidden" id="timeSpanH" name="timeSpanH" value="***">
+
                     <label>お名前</label><br>
                     <span id="userNameSpan">-</span><br><br>
+                    <input type="hidden" id="userNameSpanH" name="userNameSpanH" value="***">
+
                     <label>ユーザーID</label><br>
                     <span id="userIdSpan">-</span><br><br>
+                    <input type="hidden" id="userIdSpanH" name="userIdSpanH" value="***">
+
                     <label>メールアドレス</label><br>
                     <span id="emailSpan">-</span><br><br>
+                    <input type="hidden" id="emailSpanH" name="emailSpanH" value="***">
+
+                    <label>パスワード</label><br>
+                    <span id="passwordSpan">-</span><br><br>
+                    <input type="hidden" id="passwordSpanH" name="passwordSpanH" value="***">
+
                     <label>年齢</label><br>
                     <span id="ageSpan">-</span><br><br>
+                    <input type="hidden" id="ageSpanH" name="ageSpanH" value="***">
 
-                    <button onclick="page4();return false;">確定</button>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <button type="submit">確定</button>
                   </form>
 <!--
                 <form method="post" action="../reservation" accept-charset="UTF-8">
@@ -280,19 +301,39 @@
           userNameSpan = document.getElementById("userNameSpan");
           userIdSpan = document.getElementById("userIdSpan");
           emailSpan = document.getElementById("emailSpan");
+          passwordSpan = document.getElementById("passwordSpan");
           ageSpan = document.getElementById("ageSpan");
+
           planSpan.innerText = plan;
           timeSpan.innerText = time;
           userNameSpan.innerText = userName;
           userIdSpan.innerText = userId;
           emailSpan.innerText = email;
+          passwordSpan.innerText = "表示しません";
           ageSpan.innerText = age;
+
+          $("#planSpanH").val(plan);
+          $("#timeSpanH").val(time);
+          $("#userNameSpanH").val(userName);
+          $("#userIdSpanH").val(userId);
+          $("#emailSpanH").val(email);
+          $("#passwordSpanH").val(password);
+          $("#ageSpanH").val(age);
+          console.log($("#planSpanH").val());
+          console.log($("#timeSpanH").val());
+          console.log($("#userNameSpanH").val());
+          console.log($("#userIdSpanH").val());
+          console.log($("#emailSpanH").val());
+          console.log($("#passwordSpanH").val());
+          console.log($("#ageSpanH").val());
+
           document.getElementById('reservation4').style.display = 'block';
           document.getElementById('reservation3').style.display = 'none';
         }
 
         function page4(){
           console.log("test4 ok");
+/*ajaxでpostの書き方
           $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -300,19 +341,22 @@
           });
           $.ajax({
               type: "POST",
-              url: "/reservation",
-              data: "msg=hoge",
-              success: function(){
-                  alert("やったぜ！");
+              url: "reservation",
+              data: "request=hoge",
+              success: function(date){
+                  console.log("やったぜ！");
+                  console.log(date);
               },
               error: function() {
                   alert("ダメだったよ・・・");
               }
           });
-
-
-          document.getElementById('reservation4').style.display = 'block';
+          */
+          document.getElementById('reservation').style.display = 'none';
+          document.getElementById('reservation2').style.display = 'none';
           document.getElementById('reservation3').style.display = 'none';
+          document.getElementById('reservation4').style.display = 'none';
+
         }
         </script>
 
