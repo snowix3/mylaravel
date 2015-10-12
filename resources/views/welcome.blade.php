@@ -52,6 +52,8 @@
                 <a href="planadmin"><button value="planadmin">planadmin</button></a>
                 <a href="createUser"><button value="createUser">createUser</button></a>
                 <a href="reservation"><button value="reservation">reservation</button></a>
+                <a href="list"><button value="list">list</button></a>
+
             </div>
         </div>
     </body>

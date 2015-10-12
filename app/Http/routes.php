@@ -45,6 +45,7 @@ Route::resource('disp', 'DispController');//RESTfulな書き方。これ１行�
 Route::resource('cache', 'CacheController');//RESTfulな書き方。これ１行で全部まかなえる。
 Route::resource('planadmin', 'PlanadminController');//RESTfulな書き方。これ１行で全部まかなえる。
 Route::resource('reservation', 'ReservationController');//RESTfulコントローラー
+Route::resource('list', 'ListController');//RESTfulコントローラー
 
 Route::get('createUser', function () {
     return view('createUser');
