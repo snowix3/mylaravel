@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
+
         <title>Laravel</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
@@ -51,6 +53,7 @@
 
 
         </style>
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -100,6 +103,7 @@
                 </br>
                 </br>
                 <div id="reservation2">
+                  <h1>日時選択画面</h1>
                   <?php
                   if (isset($e)){
                     echo "<br>".$e;
@@ -188,9 +192,10 @@
                 </div>
 
                 <div id="reservation3">
+                  <h1>お客様情報入力画面</h1>
                   <form accept-charset="UTF-8">
                       <label for="name">名前</label><br>
-                      <input type="text" id="name" name="name"><br><br>
+                      <input type="text" id="userName" name="name"><br><br>
                       <label for="userId">ユーザーID</label><br>
                       <input type="text" id="userId" name="userId"><br><br>
                       <label for="email">メールアドレス</label><br>
@@ -204,11 +209,29 @@
                 </div>
 
                 <div id="reservation4">
+                  <h1>予約情報確認画面</h1>
+                  <form accept-charset="UTF-8">
+                    <label>プラン名</label><br>
+                    <span id="planSpan">-</span><br><br>
+                    <label>予約日時</label><br>
+                    <span id="timeSpan">-</span><br><br>
+                    <label>お名前</label><br>
+                    <span id="userNameSpan">-</span><br><br>
+                    <label>ユーザーID</label><br>
+                    <span id="userIdSpan">-</span><br><br>
+                    <label>メールアドレス</label><br>
+                    <span id="emailSpan">-</span><br><br>
+                    <label>年齢</label><br>
+                    <span id="ageSpan">-</span><br><br>
 
+                    <button onclick="page4();return false;">確定</button>
+                  </form>
+<!--
                 <form method="post" action="../reservation" accept-charset="UTF-8">
                   <input type="hidden" name="_token" value="{{csrf_token()}}">
                   <button type="submit">登録</button>
                 </form>
+              -->
                 </div>
             </div>
         </div>
@@ -218,40 +241,76 @@
         document.getElementById('reservation2').style.display = 'none';
         document.getElementById('reservation3').style.display = 'none';
         document.getElementById('reservation4').style.display = 'none';
+        var plan="";
+        var time="";
+        var userName = "";
+        var userId = "";
+        var email = "";
+        var password = "";
+        var age = "";
         function page1(){
           var frm = document.forms["reservationform1"];
           var idx = frm.elements["plan"].selectedIndex;
-          var plan = frm.elements["plan"].options[idx].value;
-          console.log(plan);
+          plan = frm.elements["plan"].options[idx].value;
+
           document.getElementById('reservation2').style.display = 'block';
           document.getElementById('reservation').style.display = 'none';
         }
 
         function page2(element){
-          var time = element.id;
-          console.log(document.getElementById(time).name);
+          time = element.id;
+          time = document.getElementById(time).name;
           document.getElementById('reservation3').style.display = 'block';
           document.getElementById('reservation2').style.display = 'none';
         }
 
         function page3(){
-          var name = document.getElementById("name");
-          var userId = document.getElementById("userId");
-          var email = document.getElementById("email");
-          var password = document.getElementById("password");
-          var age = document.getElementById("age");
-          console.log(name.value);
-          console.log(userId.value);
-          console.log(email.value);
-          console.log(password.value);
-          console.log(age.value);
-
+          userName = document.getElementById("userName");
+          userId = document.getElementById("userId");
+          email = document.getElementById("email");
+          password = document.getElementById("password");
+          age = document.getElementById("age");
+          userName = userName.value;
+          userId = userId.value;
+          email = email.value;
+          password = password.value;
+          age = age.value;
+          planSpan = document.getElementById("planSpan");
+          timeSpan = document.getElementById("timeSpan");
+          userNameSpan = document.getElementById("userNameSpan");
+          userIdSpan = document.getElementById("userIdSpan");
+          emailSpan = document.getElementById("emailSpan");
+          ageSpan = document.getElementById("ageSpan");
+          planSpan.innerText = plan;
+          timeSpan.innerText = time;
+          userNameSpan.innerText = userName;
+          userIdSpan.innerText = userId;
+          emailSpan.innerText = email;
+          ageSpan.innerText = age;
           document.getElementById('reservation4').style.display = 'block';
           document.getElementById('reservation3').style.display = 'none';
         }
 
         function page4(){
           console.log("test4 ok");
+          $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+          });
+          $.ajax({
+              type: "POST",
+              url: "/reservation",
+              data: "msg=hoge",
+              success: function(){
+                  alert("やったぜ！");
+              },
+              error: function() {
+                  alert("ダメだったよ・・・");
+              }
+          });
+
+
           document.getElementById('reservation4').style.display = 'block';
           document.getElementById('reservation3').style.display = 'none';
         }

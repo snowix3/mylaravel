@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 use Illuminate\Http\Request;
 use DB;
@@ -124,13 +126,16 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-      $reservation_time = $request->input('reservation_time');
+/*      $reservation_time = $request->input('reservation_time');
       DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
       [Cache::get("name"),Cache::get('userId'),Cache::get('email'),Cache::get('password'),Cache::get('age')]);
       DB::insert('insert into shop_reservation_jonathans (shop_name,user_name,reservation_time) values (?,?,?)',
       ["jonathans",Cache::get('name'),Cache::get('reservation_time')]);
+      */
+      Log::debug( Input::get('reservation') );
       return 'insert Successfully done!<br><a href="../">TOP</a>';
     }
+
 
     /**
      * Display the specified resource.
