@@ -60,7 +60,10 @@ Route::post('insertUser', 'insertUserController@insert');
 
 
 // 実際にDBにデータを入れる
-Route::post('posts', 'PostController@store');
+//Route::post('posts', 'PostController@store');
+Route::post('posts', 'PostController@index');
+Route::get('posts', 'PostController@getTest');
+
 
 Route::resource('task', 'TaskController');//RESTfulな書き方。これ１行で全部まかなえる。
 
@@ -76,6 +79,9 @@ Route::get('posts/create', ['middleware' => 'old', function()
 // 投稿formを表示する
 //Route::get('posts/create', 'PostController@create');
 
+Route::get('ajaxtest2', function () {
+    return view('ajaxtest2');
+});
 
 
 //

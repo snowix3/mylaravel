@@ -53,6 +53,7 @@
                 <a href="createUser"><button value="createUser">createUser</button></a>
                 <a href="reservation"><button value="reservation">reservation</button></a>
                 <a href="list"><button value="list">list</button></a>
+                <a href="ajaxtest2"><button value="ajaxtest2">AJAX2</button></a>
 
             </div>
         </div>

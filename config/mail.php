@@ -30,7 +30,7 @@ return [
     */
 
     //'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-    'host' => 'smtp.gmail.com',
+    'host' => 'smtp.lolipop.jp',
 
     /*
     |--------------------------------------------------------------------------
@@ -60,8 +60,8 @@ return [
 
     /*'from' => ['address' => null, 'name' => null],*/
     'from' => [
-        'address' => 'nestplus2@gmail.com',
-        'name' => 'nestplus2'
+        'address' => 'info@macboy.xyz',
+        'name' => 'ue'
         ],
 
     /*
@@ -88,7 +88,7 @@ return [
     |
     */
 
-    'username' => 'nestplus2@gmail.com',
+    'username' => 'info@macboy.xyz',
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'password' => 'nestnest',
+    'password' => 'gzpcn9',
 
     /*
     |--------------------------------------------------------------------------

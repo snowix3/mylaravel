@@ -10,6 +10,8 @@ use DB;
 use Cache;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mail;
+
 
 class ReservationController extends Controller
 {
@@ -139,6 +141,18 @@ class ReservationController extends Controller
       DB::insert('insert into shop_reservation_jonathans (shop_name,plan,user_name,reservation_time) values (?,?,?,?)',
       ["jonathans",$plan,$userName,$time]);
 
+
+      $mail_text = $plan.'を予約しました';
+      Mail::send('welcome', ['userName' => $userName], function($message) {
+             $message->to("snowix3@gmail.com")->subject('Welcome');
+         });
+/*
+      //メール送信
+      Mail::raw($mail_text, function($message) use($email)
+      {
+       $message->to($email) ->subject('test');
+     });
+*/
       return 'insert Successfully done!<br><a href="../">TOP</a>';
     }
 
