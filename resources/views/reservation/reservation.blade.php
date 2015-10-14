@@ -59,49 +59,24 @@
         <div class="container">
             <div class="content">
                 <div id="reservation">
-
-
                 <h1>プラン選択画面</h1>
-                <?php
-                if (isset($planArr)){
-                  for ($i=1; $i < 6; $i++) {
-                    $price="plan".$i."_price";
-                    $name="plan".$i."_name";
-                    $detail="plan".$i."_detail";
+                  <div align='left'>
+                  @foreach($plans as $plan)
+                  {{$plan}}<br>
+                  @endforeach
+                  </div>
 
-                    echo "<div align='left'>";
-
-                    echo '
-                    プラン'.$i.'<br>
-                    ¥'.$planArr->$price.'-<br>
-                    '.$planArr->$name.'<br>
-                    '.$planArr->$detail.'<br><br>
-                    ';
-                    echo '
-                    ';
-                    echo "</div>";
-                  }?>
-
-                  <p>プラン選択</p>
-                  <form name="reservationform1">
-                    <select name="plan" onChange="page1()">
-                      <option value="">プランを選択して日時予約へ</option>
-                      <option value="プラン1">プラン1</option>
-                      <option value="プラン2">プラン2</option>
-                      <option value="プラン3">プラン3</option>
-                      <option value="プラン4">プラン4</option>
-                      <option value="プラン5">プラン5</option>
-                    </select>
-                  </form>
-                <?php
-                }else {
-                  echo "配列が存在しません。作成してください。";
-                 }
-                ?>
-
+                <p>プラン選択</p>
+                <form name="reservationform1">
+                  <select name="plan" onChange="page1()">
+                    <option value="">プランを選択して日時予約へ</option>
+                    @foreach($plannames as $planname)
+                    {{$planname}}
+                    <option value="{{$planname}}">{{$planname}}</option>
+                    @endforeach
+                  </select>
+                </form>
                 </div>
-                </br>
-                </br>
                 <div id="reservation2">
                   <h1>日時選択画面</h1>
                   <?php
@@ -139,7 +114,7 @@
                       $hour=0;
                       $min=0;
                       $c=0;
-                      $admin=0;//1なら管理者画面で表示。
+                      $admin=1;//1なら管理者画面で表示。
                       if ($admin==1) {
                         echo "adminモード";
                       }else {

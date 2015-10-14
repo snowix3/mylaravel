@@ -25,7 +25,7 @@ class PlanadminController extends Controller
         $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
         /*http://www.hiromedo.com/memo-to-log/?p=532*/
       }
-        echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+//        echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
         return View('reservation.planadmin')->with('dbArr',$dbArr);
       }else {
         echo "E006:配列が存在しません。作成してください。";
@@ -74,7 +74,7 @@ class PlanadminController extends Controller
         $dbArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
         /*http://www.hiromedo.com/memo-to-log/?p=532*/
       }
-      echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+//      echo $dbArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
       /*表示ここまで*/
 
       return View('reservation.planadmin')->with('dbArr',$dbArr);

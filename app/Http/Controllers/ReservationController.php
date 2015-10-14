@@ -96,10 +96,27 @@ class ReservationController extends Controller
         $planArr = DB::select('select * from shop_plan where shop_name="jonathans"');
         foreach ($planArr as $key => $value) {
           $planArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
-          /*http://www.hiromedo.com/memo-to-log/?p=532*/
+        }
+
+        $plans = array();
+        $plannames = array();
+        for ($i=1; $i < 6; $i++) {
+          $price="plan".$i."_price";
+          $name="plan".$i."_name";
+          $detail="plan".$i."_detail";
+          if ($planArr->$name!=null) {
+            array_push($plans, "¥".number_format($planArr->$price)."-");
+            array_push($plans, $planArr->$name);
+            array_push($plans, $planArr->$detail);
+            //array_push($plans, null);
+            array_push($plannames, $planArr->$name);
+          }
         }
 //        echo $planArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
-        return view('reservation/reservation')->with('planArr',$planArr)->with('dbtime',$dbtime)->with('a',$a);
+        return view('reservation/reservation')->with('planArr',$planArr)->with('dbtime',$dbtime)
+        ->with('a',$a)
+        ->with('plans',$plans)
+        ->with('plannames',$plannames);
 
 
       } catch (Exception $e) {//エラー時
