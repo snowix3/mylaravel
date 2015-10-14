@@ -142,11 +142,25 @@ class ReservationController extends Controller
       ["jonathans",$plan,$userName,$time]);
 
 
-      $mail_text = $plan.'を予約しました';
-      Mail::send('welcome', ['userName' => $userName], function($message) {
-             $message->to("snowix3@gmail.com")->subject('Welcome');
-         });
-/*
+
+
+      //メールメッセージをバックグラウンドでキュー送信
+      Mail::queue('mail.complete_reservation_mail', ['userName' => $userName,'userId' => $userId,'time' => $time,'plan' => $plan], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+      /*
+      Mail::send('mail.complete_reservation_mail', ['userName' => $userName], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+
+      //laterメソッドを使用し、メールを送信するまでの遅延秒数を指定
+      Mail::later(5, 'mail.complete_reservation_mail', ['userName' => $userName], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+
       //メール送信
       Mail::raw($mail_text, function($message) use($email)
       {

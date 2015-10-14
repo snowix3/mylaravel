@@ -61,7 +61,7 @@ return [
     /*'from' => ['address' => null, 'name' => null],*/
     'from' => [
         'address' => 'info@macboy.xyz',
-        'name' => 'ue'
+        'name' => 'mail system'
         ],
 
     /*
