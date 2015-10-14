@@ -28,6 +28,8 @@ class AuthController extends Controller
      *
      * @return void
      */
+     protected $redirectPath = '../';
+     protected $loginPath = '/login';
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -62,4 +64,6 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
 }

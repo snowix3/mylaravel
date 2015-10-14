@@ -36,9 +36,23 @@
             }
         </style>
     </head>
+
     <body>
         <div class="container">
             <div class="content">
+
+              @if (Auth::guest())
+                  {{-- ログインしていない時 --}}
+                  <p>Hello Guest</p>
+
+              @else
+                  {{-- ログインしている時 --}}
+                  <p>Hello {{ Auth::user()->name }}</p>
+                  <p>Please take your time and relax!</p>
+
+              @endif
+
+
                 <div class="title">Laravel 5</div>
                 <a href="test"><button value="test">TEST</button></a>
                 <a href="test0"><button value="test0">TEST0</button></a>
@@ -54,6 +68,9 @@
                 <a href="reservation"><button value="reservation">reservation</button></a>
                 <a href="list"><button value="list">list</button></a>
                 <a href="ajaxtest2"><button value="ajaxtest2">AJAX2</button></a>
+                <a href="auth/register"><button value="register">register</button></a>
+                <a href="auth/login"><button value="login">login</button></a>
+                <a href="/auth/logout"><button value="logout">logout</button></a><br>
 
             </div>
         </div>
