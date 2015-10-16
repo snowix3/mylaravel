@@ -99,7 +99,9 @@ class ReservationController extends Controller
         }
 
         $plans = array();
+        $planprices = array();
         $plannames = array();
+        $plandetails = array();
         for ($i=1; $i < 6; $i++) {
           $price="plan".$i."_price";
           $name="plan".$i."_name";
@@ -110,13 +112,15 @@ class ReservationController extends Controller
             array_push($plans, $planArr->$detail);
             //array_push($plans, null);
             array_push($plannames, $planArr->$name);
+            array_push($plandetails, $planArr->$detail);
           }
         }
 //        echo $planArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
         return view('reservation/reservation')->with('planArr',$planArr)->with('dbtime',$dbtime)
         ->with('a',$a)
         ->with('plans',$plans)
-        ->with('plannames',$plannames);
+        ->with('plannames',$plannames)
+        ->with('plandetails',$plandetails);
 
 
       } catch (Exception $e) {//エラー時

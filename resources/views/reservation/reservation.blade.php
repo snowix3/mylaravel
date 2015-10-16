@@ -71,7 +71,6 @@
                   <select name="plan" onChange="page1()">
                     <option value="">プランを選択して日時予約へ</option>
                     @foreach($plannames as $planname)
-                    {{$planname}}
                     <option value="{{$planname}}">{{$planname}}</option>
                     @endforeach
                   </select>
@@ -248,7 +247,6 @@
           var frm = document.forms["reservationform1"];
           var idx = frm.elements["plan"].selectedIndex;
           plan = frm.elements["plan"].options[idx].value;
-
           document.getElementById('reservation2').style.display = 'block';
           document.getElementById('reservation').style.display = 'none';
         }
