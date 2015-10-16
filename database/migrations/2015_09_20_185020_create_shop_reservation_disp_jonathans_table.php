@@ -14,7 +14,7 @@ class CreateShopReservationDispJonathansTable extends Migration
     {
         Schema::create('shop_reservation_disp_jonathans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reservation_number');
+            $table->string('shop_name');
             $table->timestamps();
             $table->integer('mon_00_00');
             $table->integer('mon_00_30');

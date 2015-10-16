@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 use Illuminate\Http\Request;
 use DB;
 use Cache;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\shop_reservation_jonathans;
+use Mail;
 
-class DispController extends Controller
+
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -90,11 +93,41 @@ class DispController extends Controller
         //  echo $a[$i]."<br>";
         }
 
+        $planArr = DB::select('select * from shop_plan where shop_name="jonathans"');
+        foreach ($planArr as $key => $value) {
+          $planArr = $value;//$dbArrにオブジェクトでDBの内容が入っている。下記URL参照。
+        }
+
+        $plans = array();
+        $planprices = array();
+        $plannames = array();
+        $plandetails = array();
+        for ($i=1; $i < 6; $i++) {
+          $price="plan".$i."_price";
+          $name="plan".$i."_name";
+          $detail="plan".$i."_detail";
+          if ($planArr->$name!=null) {
+            array_push($plans, "¥".number_format($planArr->$price)."-");
+            array_push($plans, $planArr->$name);
+            array_push($plans, $planArr->$detail);
+            //array_push($plans, null);
+            array_push($plannames, $planArr->$name);
+            array_push($plandetails, $planArr->$detail);
+          }
+        }
+//        echo $planArr->shop_name;//$dbArrというオブジェクトからshop_nameを取り出している。
+        return view('reservation/reservation')->with('planArr',$planArr)->with('dbtime',$dbtime)
+        ->with('a',$a)
+        ->with('plans',$plans)
+        ->with('plannames',$plannames)
+        ->with('plandetails',$plandetails);
+
+
       } catch (Exception $e) {//エラー時
 //        echo "E003:".$e;
         return view('reservation/disp')->with('e',$e);
       }
-      return view('reservation/disp')->with('dbtime',$dbtime)->with('a',$a);
+//      return view('reservation/reservation')->with('dbtime',$dbtime)->with('a',$a);
     }
 
     /**
@@ -116,24 +149,48 @@ class DispController extends Controller
      */
     public function store(Request $request)
     {
-      //送られてきた情報を受け取る
-      $reservation_time = $request->input('reservation_time');
-      //shop_reservation_jonathansモデルを指定。そのなかのshop_nameがjonathansの物の
-      shop_reservation_jonathans::where('shop_name','jonathans')
-      //reservation_timeカラムにinsertする
-      ->insert(['reservation_time' => $reservation_time ]);
-      //ちなみにテーブルの指定はモデルで設定しているよ
+      $plan = $request->input('planSpanH');
+      $time = $request->input('timeSpanH');
+      $userName = $request->input('userNameSpanH');
+      $userId = $request->input('userIdSpanH');
+      $email = $request->input('emailSpanH');
+      $password = $request->input('passwordSpanH');
+      $age = $request->input('ageSpanH');
+
+      DB::insert('insert into shop_user_info_jonathans (user_name,user_id,email,password,age) values (?,?,?,?,?)',
+      [$userName,$userId,$email,$password,$age]);
+      DB::insert('insert into shop_reservation_jonathans (shop_name,plan,user_name,reservation_time) values (?,?,?,?)',
+      ["jonathans",$plan,$userName,$time]);
 
 
 
-      //$reservation_time->save();
-      //$reservation_time = $request->input('reservation_time');
-      // Cache::put('reservation_time', $reservation_time, 30);
-      // $reservation_time = Cache::get('reservation_time');
-      // $now = DB::select('select current_timestamp');//DBの現在時刻を取りに行く
-      // DB::table('shop_reservation_jonathans')->insert(['reservation_time' => $reservation_time ,'shop_name' => 'jonathans']);
-      return 'insert Successfully done!';
+
+      //メールメッセージをバックグラウンドでキュー送信
+      Mail::queue('mail.complete_reservation_mail', ['userName' => $userName,'userId' => $userId,'time' => $time,'plan' => $plan], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+      /*
+      Mail::send('mail.complete_reservation_mail', ['userName' => $userName], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+
+      //laterメソッドを使用し、メールを送信するまでの遅延秒数を指定
+      Mail::later(5, 'mail.complete_reservation_mail', ['userName' => $userName], function($message)use($email)
+      {
+        $message->to($email)->subject('予約完了');
+      });
+
+      //メール送信
+      Mail::raw($mail_text, function($message) use($email)
+      {
+       $message->to($email) ->subject('test');
+     });
+*/
+      return 'insert Successfully done!<br><a href="../">TOP</a>';
     }
+
 
     /**
      * Display the specified resource.
@@ -143,7 +200,7 @@ class DispController extends Controller
      */
     public function show($id)
     {
-        return 'show Successfully done!';
+      return 'show Successfully done!';
     }
 
     /**

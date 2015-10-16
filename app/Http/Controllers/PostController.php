@@ -16,8 +16,18 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+      $request1 = $_POST['request1'];
+      $request2 = $_POST['request2'];
+      
+        return $request1.$request2;
     }
+
+    public function getTest()
+    {
+      $request = $_GET['id'];
+      return $request;
+    }
+
 
     public function create(){
         return View('posts.create');

@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    //'driver' => env('MAIL_DRIVER', 'smtp'), //デフォルト（.evnファイルを参照）
+    'driver' => 'smtp',//evnファイル不要
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    //'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'smtp.lolipop.jp',
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +43,9 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    //'port' => env('MAIL_PORT', 587),
+    'port' => 465,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +58,11 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    /*'from' => ['address' => null, 'name' => null],*/
+    'from' => [
+        'address' => 'info@macboy.xyz',
+        'name' => 'mail system'
+        ],
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +75,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => 'ssl',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +88,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'info@macboy.xyz',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +101,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => 'gzpcn9',
 
     /*
     |--------------------------------------------------------------------------

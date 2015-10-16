@@ -27,47 +27,38 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $timeArr = array();
-        $timeArr2 = array();
-        $timeArr3 = array();
-        $quantityArr = array();
-        $quantityArr2 = array();
-        $array = DB::select('select * from shop_reservation_disp_jonathans where id=1');
-        //print_r($array);
-        //var_dump(json_decode(json_encode($array), true));
-        //$array = json_decode(json_encode($array), true);
-        //var_dump((array)$array);
-        $i=0;
-        $j=0;
-        $array = DB::select("show columns from shop_reservation_disp_jonathans");
-        foreach ($array as $key) {
-            $timeArr[$i] = $key;
-            //print_r($quantityArr[$i]);
-
-            foreach ($timeArr[$i] as $key2) {
-                $timeArr2[$j] = $key2;
-                if ($i>=4) {
-                  if ($j==0) {
-                    //echo $quantityArr2[$j]."</br>";
-                    $quantityArr[$i] = DB::table('shop_reservation_disp_jonathans')
-                          ->lists($timeArr2[$j]);
-                    foreach ($quantityArr[$i] as $key3) {
-                        $quantityArr2[$i]=$key3;
-                  //      echo $quantityArr2[$i]."<br>";
-                    }
-                    $timeArr3[$i]=$timeArr2[0];
-//                    echo $timeArr3[$i]."</br>";
-//                    echo $quantityArr2[$i]."</br>";
-//devブランチコミットテスト
-                  }
-                }
-                $j++;
-            }
-            $j=0;
-            $i++;
+      try {
+      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
+        $c=0;
+        $key;
+        foreach ($dbArr as $key1) {
+          $key=$key1;
+          $c++;
         }
-//        echo $quantityArr2[7]."</br>";
-        return view('reservation/shop')->with('timeArr3',$timeArr3)->with('quantityArr2',$quantityArr2);
+        if (isset($key)){//DBの存在チェック
+        $c=0;
+        foreach ($key as $key2) {//キー名を取得
+          $keyArr[$c]=key($key);
+          $c++;
+        }
+        $c=0;
+        array_splice($keyArr, 0, 3);//$keyArrにはキー名が順番に格納されている。配列の3番目までを削除
+
+        foreach ($key as $key2) {//値を取得
+          $valueArr[$c]=$key2;
+          $c++;
+        }
+        array_splice($valueArr, 0, 4);//$valueArrには値が格納されている。配列の4番目までを削除
+        }else {//エラー時
+            $e="E002:ueueruts error";
+            return view('reservation/shop')->with('e',$e);
+          }
+
+      } catch (Exception $e) {//エラー時
+//        echo "E003:".$e;
+        return view('reservation/shop')->with('e',$e);
+      }
+        return view('reservation/shop')->with('timeArr3',$keyArr)->with('quantityArr2',$valueArr);
     }
 
     /**
@@ -77,7 +68,8 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        DB::insert('insert into shop_reservation_disp_jonathans(id,shop_name)values(1,"jonathans")');//指定したIDのレコードを作成する。shop_nameも指定すること。
+        return 'create Successfully done!<br><a href="../">TOP</a>';
     }
 
     /**
@@ -116,10 +108,8 @@ class ShopController extends Controller
           }
 
           $quantityArr[$i] = $value;
-          //echo   "quantity配列：".$quantityArr[$i]."</br>";
-          //echo $quantityArr[$i];
           DB::table('shop_reservation_disp_jonathans')
-                ->where('id', 1)
+                ->where('id', 1)//ID=1のレコードを取りにいく。
                 ->update([$timeArr[$i] => $quantityArr[$i]]);
           $i++;
       }
@@ -131,54 +121,28 @@ class ShopController extends Controller
       $timeArr3 = array();
       $quantityArr = array();
       $quantityArr2 = array();
-      $array = DB::select('select * from shop_reservation_disp_jonathans where id=1');
-      //print_r($array);
-      //var_dump(json_decode(json_encode($array), true));
-      //$array = json_decode(json_encode($array), true);
-      //var_dump((array)$array);
-      $i=0;
-      $j=0;
-      $array = DB::select("show columns from shop_reservation_disp_jonathans");
-      foreach ($array as $key) {
-          $timeArr[$i] = $key;
-          //print_r($quantityArr[$i]);
-
-          foreach ($timeArr[$i] as $key2) {
-              $timeArr2[$j] = $key2;
-              if ($i>=4) {
-                if ($j==0) {
-                  //echo $quantityArr2[$j]."</br>";
-                  $quantityArr[$i] = DB::table('shop_reservation_disp_jonathans')
-                        ->lists($timeArr2[$j]);
-                  foreach ($quantityArr[$i] as $key3) {
-                      $quantityArr2[$i]=$key3;
-                //      echo $quantityArr2[$i]."<br>";
-                  }
-                  $timeArr3[$i]=$timeArr2[0];
-      //                    echo $timeArr3[$i]."</br>";
-      //                    echo $quantityArr2[$i]."</br>";
-                }
-              }
-              $j++;
-          }
-          $j=0;
-          $i++;
+      $dbArr = DB::select('select * from shop_reservation_disp_jonathans where id=1');//ID=1のレコードを取りにいく。
+      $c=0;
+      $key;
+      foreach ($dbArr as $key1) {
+        $key=$key1;
+        $c++;
       }
-      //        echo $quantityArr2[7]."</br>";
-      return view('reservation/shop')->with('timeArr3',$timeArr3)->with('quantityArr2',$quantityArr2);
-      //ここまで
-//      return view('reservation.shop')->with('quantityArr',$quantityArr);
+      $c=0;
 
-//      print_r($request->all());
-//UPDATE 対象となるテーブル SET 更新対象となる列名 = 新しく更新するデータ WHERE 検索条件対象となる列名 = 検索条件対象となるフィールドの値;
-//SELECT *FROM 対象となるテーブル WHERE 検索条件対象となる列名 LIKE '%特定の文字列%';
-//      shop_reservation_disp_jonathans::update('UPDATE shop_reservation_disp_jonathans SET mon_01_00 = ? WHERE id = 1');
-//      shop_reservation_disp_jonathans::insert(['created_at' => $now]);//新規作成日時
-//      shop_reservation_disp_jonathans::update('s', ['1']);
-//mysql> delete from shop_reservation_disp_jonathans WHERE id = 2;
-//mysql> UPDATE shop_reservation_disp_jonathans SET mon_01_00 = 3 WHERE id = 1;
-//DB::statement('drop table users'); 通常のSQL文を実行
+      foreach ($key as $key2) {//キー名を取得
+        $keyArr[$c]=key($key);
+        $c++;
+      }
+      $c=0;
+      array_splice($keyArr, 0, 3);//$keyArrにはキー名が順番に格納されている。配列の４番目までを削除
 
+      foreach ($key as $key2) {//値を取得
+        $valueArr[$c]=$key2;
+        $c++;
+      }
+      array_splice($valueArr, 0, 4);//$valueArrには値が格納されている。配列の４番目までを削除
+      return view('reservation/shop')->with('timeArr3',$keyArr)->with('quantityArr2',$valueArr);
     }
 
     /**
@@ -189,7 +153,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show Successfully done!';
     }
 
     /**
@@ -200,7 +164,7 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit Successfully done!';
     }
 
     /**
@@ -212,7 +176,7 @@ class ShopController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'update Successfully done!';
     }
 
     /**
@@ -223,6 +187,6 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'destroy Successfully done!';
     }
 }

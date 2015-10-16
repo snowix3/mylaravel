@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <?php
-      header("Content-Type: text/html; charset=UTF-8");
-      echo "UTF-8です";
-      ?>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>クリ８</title>
     </head>
